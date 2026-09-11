@@ -19,6 +19,279 @@
   --t1:#0d1520; --t2:#4a5a6e; --t3:#9aabb8;
   --shadow-glow:0 0 20px rgba(0,122,61,0.15),0 0 40px rgba(0,122,61,0.05);
 }
+/* ============================================================
+   ═══════════════ GLASSMORPHISM OVERHAUL v2 ═══════════════
+   Frosted-glass "neo-hacker" skin layered on top of the base
+   theme. Only visual properties (background/blur/border/shadow/
+   radius/gradient) are touched here — layout & responsive rules
+   above are left intact.
+   ============================================================ */
+
+:root{
+  --glass-bg:      rgba(18,23,32,.52);
+  --glass-bg-soft: rgba(18,23,32,.32);
+  --glass-bg-solid:rgba(14,18,25,.78);
+  --glass-border:  rgba(255,255,255,.09);
+  --glass-border-2:rgba(255,255,255,.16);
+  --glass-shadow:  0 8px 32px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+  --glass-shine:   linear-gradient(120deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,0) 35%);
+  --glass-blur:    blur(18px);
+  --glass-blur-lg: blur(28px);
+}
+[data-theme="light"]{
+  --glass-bg:      rgba(255,255,255,.55);
+  --glass-bg-soft: rgba(255,255,255,.35);
+  --glass-bg-solid:rgba(255,255,255,.82);
+  --glass-border:  rgba(10,20,35,.10);
+  --glass-border-2:rgba(10,20,35,.18);
+  --glass-shadow:  0 8px 32px rgba(20,40,60,.14), inset 0 1px 0 rgba(255,255,255,.6);
+  --glass-shine:   linear-gradient(120deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 35%);
+}
+
+/* ── AURORA BACKDROP ── */
+body{background:var(--bg0)}
+.aurora-bg{
+  position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;
+  background:var(--bg0);
+}
+.aurora-grid{
+  position:absolute;inset:0;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+                    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 20%,#000 40%,transparent 90%);
+}
+.aurora-blob{
+  position:absolute;border-radius:50%;filter:blur(100px);
+  mix-blend-mode:screen;opacity:.32;
+  animation:auroraDrift 26s ease-in-out infinite;
+  will-change:transform;
+}
+[data-theme="light"] .aurora-blob{opacity:.16;mix-blend-mode:multiply}
+.ab1{width:52vw;height:52vw;max-width:640px;max-height:640px;background:radial-gradient(circle,var(--g),transparent 68%);top:-18vw;left:-14vw;animation-duration:28s}
+.ab2{width:44vw;height:44vw;max-width:560px;max-height:560px;background:radial-gradient(circle,var(--b),transparent 68%);top:8vw;right:-16vw;animation-duration:34s;animation-delay:-8s}
+.ab3{width:48vw;height:48vw;max-width:600px;max-height:600px;background:radial-gradient(circle,var(--p),transparent 68%);bottom:-20vw;left:22vw;animation-duration:30s;animation-delay:-14s}
+.ab4{width:30vw;height:30vw;max-width:400px;max-height:400px;background:radial-gradient(circle,var(--y),transparent 70%);bottom:6vw;right:8vw;animation-duration:22s;animation-delay:-4s;opacity:.16}
+@keyframes auroraDrift{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(3vw,-2.5vw) scale(1.08)}
+  66%{transform:translate(-2.5vw,2vw) scale(.94)}
+}
+@media(prefers-reduced-motion:reduce){.aurora-blob{animation:none}}
+
+/* ── GLASS SHEEN MIXIN (top hairline highlight) ── */
+.topbar,.masthead,.cat-strip,.navbar,.cat-grid-card,.cat-section-hd,.tool-card,
+.tool-card-feat,.widget,.modal-box,.toast,#backToTop,.kali-search-wrap,
+.kali-terminal-line,.kali-badge,.kali-stat,.kali-dragon-inner,.icon-btn,
+.nsearch,.ftab,.info-box,.warn-box,footer,.qi-code{
+  position:relative;
+}
+
+/* ── TOPBAR / MASTHEAD / CAT STRIP ── */
+.topbar{
+  background:var(--glass-bg-soft)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border-bottom:1px solid var(--glass-border);
+}
+.masthead{
+  background:var(--glass-bg-soft)!important;
+  backdrop-filter:var(--glass-blur-lg);-webkit-backdrop-filter:var(--glass-blur-lg);
+}
+.cat-strip{
+  background:var(--glass-bg-soft)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border-bottom:1px solid var(--glass-border);
+}
+.navbar{
+  background:var(--glass-bg)!important;
+  backdrop-filter:var(--glass-blur-lg);-webkit-backdrop-filter:var(--glass-blur-lg);
+  border-bottom:1px solid var(--glass-border);
+}
+.logo-box{box-shadow:0 4px 18px rgba(0,255,136,.25),inset 0 1px 0 rgba(255,255,255,.35)}
+.nsearch,.icon-btn{
+  background:var(--glass-bg-soft)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border-color:var(--glass-border);
+}
+.ftab{
+  background:var(--glass-bg-soft)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border-color:var(--glass-border);
+}
+.ftab.act{box-shadow:0 6px 20px rgba(0,255,136,.3)}
+
+/* ── HERO GLASS ELEMENTS ── */
+.kali-hero{background:radial-gradient(ellipse 120% 80% at 50% -10%,rgba(0,255,136,.06),transparent 60%),#050709}
+.kali-search-wrap,.kali-terminal-line{
+  background:var(--glass-bg)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  box-shadow:var(--glass-shadow);
+}
+.kali-badge{
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+}
+.kali-cta{
+  box-shadow:0 10px 30px rgba(0,255,136,.28),inset 0 1px 0 rgba(255,255,255,.3);
+}
+.kali-stat{
+  background:var(--glass-bg-soft)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  box-shadow:var(--glass-shadow);
+}
+.kali-dragon-inner{
+  background:radial-gradient(circle at 38% 32%,rgba(255,255,255,.10),rgba(5,7,9,.55) 70%)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  box-shadow:0 0 50px rgba(0,255,136,.16),inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 24px rgba(0,255,136,.07);
+}
+
+/* ── CATEGORY GRID SECTION (transparent to reveal aurora) ── */
+.cat-grid-section{background:transparent!important;border-bottom:1px solid var(--glass-border)}
+.cgs-bar{box-shadow:0 0 10px var(--g)}
+
+/* ═══ NEW TOOL CARDS — glass edition ═══ */
+.cat-grid-card{
+  background:linear-gradient(155deg,var(--glass-bg),var(--glass-bg-soft))!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  box-shadow:var(--glass-shadow);
+  border-bottom:1px solid var(--glass-border);
+}
+.cat-grid-card::after{background:var(--glass-shine)}
+.cat-grid-card:hover{
+  background:linear-gradient(155deg,var(--glass-bg),rgba(255,255,255,.03))!important;
+  border-color:color-mix(in srgb, var(--cgc,var(--g)) 55%, var(--glass-border));
+  box-shadow:0 14px 38px -10px color-mix(in srgb, var(--cgc,var(--g)) 45%, transparent),var(--glass-shadow);
+}
+.cgc-icon{
+  border-radius:12px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 4px 14px rgba(0,0,0,.25);
+}
+
+.cat-section-hd{
+  background:var(--glass-bg-soft)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+}
+
+/* Category accent variables driven straight off existing modifier classes */
+.tool-card.tc-exploit{--accent:var(--r)}
+.tool-card.tc-network{--accent:var(--b)}
+.tool-card.tc-phishing{--accent:var(--p)}
+.tool-card.tc-osint{--accent:var(--g)}
+.tool-card.tc-recon{--accent:var(--y)}
+.tool-card.tc-password{--accent:var(--o)}
+.tool-card.tc-system{--accent:#38bdf8}
+.tool-card.tc-style{--accent:#e879f9}
+.tool-card.tc-distro{--accent:#fb923c}
+.tool-card.tc-emulator{--accent:#34d399}
+
+.tool-card{
+  background:linear-gradient(140deg,var(--glass-bg),var(--glass-bg-soft))!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-left:3px solid var(--accent,var(--g));
+  border-radius:16px;
+  box-shadow:var(--glass-shadow);
+}
+.tool-card::before{background:radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%),color-mix(in srgb, var(--accent,var(--g)) 22%, transparent),transparent 55%)}
+.tool-card:hover{
+  background:linear-gradient(140deg,var(--glass-bg),rgba(255,255,255,.035))!important;
+  border-color:color-mix(in srgb, var(--accent,var(--g)) 45%, var(--glass-border));
+  box-shadow:0 16px 44px -12px color-mix(in srgb, var(--accent,var(--g)) 40%, transparent),var(--glass-shadow);
+}
+.tc-icon-box{
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.14),var(--glass-bg-soft) 75%)!important;
+  border-right:1px solid var(--glass-border);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14);
+  border-radius:15px 0 0 15px;
+}
+.tool-card:hover .tc-icon-box{
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.18),var(--glass-bg) 75%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 22px -4px color-mix(in srgb, var(--accent,var(--g)) 55%, transparent);
+}
+.tcb{backdrop-filter:blur(6px)}
+.tc-btn-g{box-shadow:0 4px 14px rgba(0,255,136,.22),inset 0 1px 0 rgba(255,255,255,.25)}
+.tc-arr{border-left:1px solid var(--glass-border)}
+
+.tool-card-feat{
+  background:linear-gradient(150deg,var(--glass-bg),var(--glass-bg-soft))!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:20px;
+  box-shadow:var(--glass-shadow);
+}
+.tool-card-feat:hover{
+  border-color:rgba(0,255,136,.4);
+  box-shadow:0 18px 48px -14px rgba(0,255,136,.3),var(--glass-shadow);
+}
+.tcf-foot{border-top:1px solid var(--glass-border)}
+
+/* ── SIDEBAR WIDGETS ── */
+.widget{
+  background:linear-gradient(150deg,var(--glass-bg),var(--glass-bg-soft))!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  box-shadow:var(--glass-shadow);
+}
+.widget:hover{border-color:var(--glass-border-2);box-shadow:0 14px 36px -10px rgba(0,255,136,.16),var(--glass-shadow)}
+.w-hd{border-bottom:1px solid var(--glass-border)}
+.qi-code{
+  background:var(--glass-bg-solid)!important;
+  border-radius:10px;border:1px solid var(--glass-border);
+}
+.cli-count{background:var(--glass-bg-soft)!important;border-color:var(--glass-border)}
+.tg{backdrop-filter:blur(6px)}
+.btn-dl{box-shadow:0 6px 20px rgba(0,255,136,.25),inset 0 1px 0 rgba(255,255,255,.3)}
+
+/* ── MODAL / TOAST / BACK-TO-TOP ── */
+.modal-box{
+  background:var(--glass-bg-solid)!important;
+  backdrop-filter:var(--glass-blur-lg);-webkit-backdrop-filter:var(--glass-blur-lg);
+  border:1px solid var(--glass-border-2);
+  border-radius:20px;
+  box-shadow:0 30px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.07);
+}
+.modal-hd{border-bottom:1px solid var(--glass-border)}
+.modal-bd pre{background:rgba(0,0,0,.35);border-color:var(--glass-border)}
+.toast{
+  background:var(--glass-bg-solid)!important;
+  border-color:var(--glass-border-2);
+  border-radius:14px;
+}
+#backToTop{
+  background:var(--glass-bg)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border-color:var(--glass-border);
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--glass-bg-soft)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border-top:1px solid var(--glass-border);
+}
+.soc-btn{
+  background:var(--glass-bg-soft)!important;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border-color:var(--glass-border);
+}
+.footer-bot{border-top:1px solid var(--glass-border)}
+
+/* ── INFO / WARN BOXES (used inside tutorials/content) ── */
+.info-box,.warn-box{
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+}
+
+/* ── Fallback for browsers without color-mix() / backdrop-filter ── */
+@supports not (backdrop-filter:blur(1px)){
+  .tool-card,.tool-card-feat,.cat-grid-card,.widget,.modal-box,.navbar,
+  .topbar,.masthead,.cat-strip,footer,.toast,#backToTop{
+    background:var(--glass-bg-solid)!important;
+  }
+}
 
 /* ── OVERFLOW FIX ── */
 html,body{overflow-x:hidden;max-width:100%;width:100%}
