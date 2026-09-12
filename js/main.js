@@ -219,9 +219,10 @@ function liveSearch(q){
   document.getElementById('noResults').style.display=anyVisible?'none':'block';
 }
 
-document.getElementById('heroSearch').addEventListener('input',function(){
-  liveSearch(this.value);
-});
+(function(){
+  var hs=document.getElementById('heroSearch');
+  if(hs)hs.addEventListener('input',function(){liveSearch(this.value)});
+})();
 
 /* ── CAT STRIP CLICK ── */
 document.querySelectorAll('.cs-btn').forEach(function(btn){
