@@ -50,8 +50,12 @@
 [data-theme="light"] .aurora-blob{opacity:.22}
 @media(prefers-reduced-motion:reduce){.aurora-blob{animation:none!important}}
 
-/* Everything else needs to sit above the aurora layer */
-.topbar,.masthead,.cat-strip,.kali-hero,.cat-grid-section,.wrap,footer,#toastContainer,.modal-overlay,#backToTop{position:relative;z-index:1}
+/* Everything else needs to sit above the aurora layer.
+   NOTE: #toastContainer, .modal-overlay and #backToTop are intentionally
+   position:fixed in style.css — they must NOT be reset to position:relative
+   here, or the hidden .modal-overlay drops into normal document flow and
+   pushes the whole page down (this was the top-gap bug). */
+.topbar,.masthead,.cat-strip,.kali-hero,.cat-grid-section,.wrap,footer{position:relative;z-index:1}
 
 /* ================================================================
    CHROME BARS → GLASS
