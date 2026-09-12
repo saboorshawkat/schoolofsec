@@ -25,21 +25,6 @@
   --glass-shadow:     0 10px 30px rgba(30,50,70,.10), inset 0 1px 0 rgba(255,255,255,.7);
   --glass-shadow-hov: 0 18px 42px rgba(30,50,70,.16), inset 0 1px 0 rgba(255,255,255,.8);
 }
-/* The Kali hero banner keeps a dark backdrop in BOTH themes (it's a fixed
-   "terminal" panel, not a themed surface). In light mode the vars above
-   flip --glass/--t1/--t2/--t3 to light-on-white values, which made the
-   search bar, stat boxes and terminal line inside the hero turn into
-   near-invisible pale-grey-on-dark-grey. Pin the hero's own tokens back
-   to their dark-mode values so it always renders legibly. */
-[data-theme="light"] .kali-hero{
-  --t1:#e8edf5; --t2:#7a8899; --t3:#babec3;
-  --glass:            rgba(255,255,255,.045);
-  --glass-hi:         rgba(255,255,255,.09);
-  --glass-brd:        rgba(255,255,255,.10);
-  --glass-brd-hi:     rgba(255,255,255,.22);
-  --glass-shadow:     0 10px 36px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.06);
-  --glass-shadow-hov: 0 18px 48px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.10);
-}
 
 /* ── Per-category accent RGB triplets (for glow math) ── */
 :root{
