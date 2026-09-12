@@ -7,7 +7,7 @@
   --b:#00aaff; --b2:#00aaff33; --b3:#00aaff11;
   --y:#f5c518; --r:#ff4444; --p:#b060ff; --o:#ff7f50;
   --t1:#e8edf5; --t2:#7a8899; --t3:#babec3;
-  --mono:'Lexend Deca',sans-serif;
+  --mono:'Cascadia Code','Courier New',monospace;
   --head:'Lexend Deca',sans-serif;
   --rad:6px; --rad2:10px; --rad3:14px;
   --shadow-glow:0 0 20px rgba(0,255,136,0.15),0 0 40px rgba(0,255,136,0.05);
@@ -30,16 +30,6 @@ a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 button{cursor:pointer;font-family:var(--mono)}
 input,button{max-width:100%}
-
-/* ── SCANLINE + NOISE OVERLAY ── */
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.025) 2px,rgba(0,0,0,.025) 4px);
-}
-body::after{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.03;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
 
 .wrap{max-width:100%;margin:0 auto;padding:0 14px;width:100%}
 
