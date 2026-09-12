@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Phishing Tools | SchoolOfSec</title>
+<link href="assets/favicon.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800;900&amp;family=Cascadia+Code:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<link href="css/style.css" rel="stylesheet"/>
+<link href="css/glass-theme.css" rel="stylesheet"/>
+<base target="_blank"/>
+
+</head>
+<body>
+
+<div aria-hidden="true" class="aurora-bg">
+<span class="aurora-blob ab1"></span>
+<span class="aurora-blob ab2"></span>
+<span class="aurora-blob ab3"></span>
+</div>
+
+<div id="loader">
+<div class="loader-term">
+<div>root@geektimes:~$ <span style="color:var(--pri)">init_system()</span></div>
+<div style="color:var(--t3)">Loading modules...</div>
+<div style="color:var(--t3)">Mounting filesystem...</div>
+<div style="color:var(--t3)">Establishing secure connection...</div>
+</div>
+<div class="loader-bar"><div class="loader-bar-inner" id="loaderBar"></div></div>
+</div>
+<div id="toastContainer"></div>
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+<div class="modal-box" id="modalBox" onclick="event.stopPropagation()">
+<div class="modal-hd">
+<div class="modal-title" id="modalTitle">Tutorial</div>
+<div class="modal-close" onclick="closeModal()"><i class="fa fa-times"></i></div>
+</div>
+<div class="modal-bd" id="modalBody"></div>
+</div>
+</div>
+
+<div class="topbar">
+<div class="topbar-w">
+<div class="tb-left">
+<span class="tb-date" id="tbDate">THU · 21 MAY 2026</span>
+<div class="tb-sep"></div>
+<span class="tb-edition">BY · SABOOR SHAWKAT</span>
+<div class="tb-sep"></div>
+<div class="live-pill"><span class="live-dot"></span>HELLO GEEK</div>
+</div>
+<div class="tb-right">
+<a href="#" onclick="showToast('Submit feature coming soon!')">Submit A Tool</a>
+<div class="tb-sep2"></div>
+<a href="#">RSS</a>
+<div class="tb-sep2"></div>
+<a href="#">Newsletter</a>
+<div class="tb-sep2"></div>
+<a href="#">Advertise</a>
+<div class="tb-sep2"></div>
+<div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light / dark mode">
+<i class="fa fa-moon"></i>
+</div>
+</div>
+</div>
+</div>
+
+<div class="masthead">
+<div class="mast-w">
+<div class="logo-wrap">
+<div class="logo-box"><a href="#"><img alt="SchoolOfSec logo" src="assets/profile.png"/></a></div>
+<div class="logo-text">
+<span class="logo-main">School<span>OfSec</span></span>
+<span class="logo-sub">Master Cybersecurity</span>
+</div>
+</div>
+<div class="mast-sep"></div>
+<div class="mast-desc">
+      Remember With <strong>Great Powers</strong> Comes <strong>Great Responsibility</strong><br/>
+</div>
+<div class="mast-right">
+<div class="mstat"><span class="mstat-n counter" data-target="142">0</span><span class="mstat-l">K Readers</span></div>
+<div class="mstat"><span class="mstat-n counter" data-target="340">0</span><span class="mstat-l">Tools Listed</span></div>
+<div class="mstat"><span class="mstat-n counter" data-target="980">0</span><span class="mstat-l">Tutorials</span></div>
+</div>
+</div>
+</div>
+
+<div class="cat-strip"><div class="cs-inner">
+<a href="index.html" class="cs-btn"><span class="cs-dot" style="background:var(--g)"></span>All Tools</a>
+<a href="exploitation.html" class="cs-btn"><span class="cs-dot" style="background:#ff4444"></span>Exploitation</a>
+<a href="network.html" class="cs-btn"><span class="cs-dot" style="background:#00aaff"></span>Network</a>
+<a href="phishing.html" class="cs-btn act"><span class="cs-dot" style="background:#b060ff"></span>Phishing</a>
+<a href="osint.html" class="cs-btn"><span class="cs-dot" style="background:#00ff88"></span>OSINT</a>
+<a href="recon.html" class="cs-btn"><span class="cs-dot" style="background:#f5c518"></span>Recon</a>
+<a href="password.html" class="cs-btn"><span class="cs-dot" style="background:#ff7f50"></span>Password</a>
+<a href="system.html" class="cs-btn"><span class="cs-dot" style="background:#38bdf8"></span>System</a>
+<a href="style-ui.html" class="cs-btn"><span class="cs-dot" style="background:#e879f9"></span>Style & UI</a>
+<a href="distros.html" class="cs-btn"><span class="cs-dot" style="background:#fb923c"></span>Distros</a>
+<a href="emulators.html" class="cs-btn"><span class="cs-dot" style="background:#34d399"></span>Emulators</a>
+</div></div>
+
+<div class="kali-hero" style="min-height:0">
+  <div class="kali-overlay"></div>
+  <div class="kali-inner" style="padding:26px 4px 20px">
+    <div class="kali-left">
+      <div class="kali-eyebrow">
+        <span class="kali-eyebrow-line"></span>
+        <span class="kali-eyebrow-tag"><i class="fa fa-user-secret"></i>Phishing Tools Directory</span>
+        <span class="kali-eyebrow-line"></span>
+      </div>
+      <h1 class="kali-title">
+        <span class="kali-title-top">CATEGORY</span>
+        <span class="kali-title-main">Phishing<span class="kali-title-accent">.</span></span>
+      </h1>
+      <p class="kali-desc">Social engineering & phishing kits for security awareness training</p>
+      <div class="kali-actions">
+        <div class="kali-search-wrap">
+          <i class="fa fa-search kali-search-ico"></i>
+          <input type="text" class="kali-search-input" placeholder="Search Phishing tools..." id="heroSearch" oninput="liveSearch(this.value)"/>
+        </div>
+        <a href="index.html" class="kali-cta"><i class="fa fa-layer-group"></i> All Categories</a>
+      </div>
+      <div class="kali-badges">
+        <span class="kali-badge" style="background:#b060ff1a;color:#b060ff;border:1px solid #b060ff40"><i class="fa fa-cube"></i> 5 Tools</span>
+        <span class="kali-badge kali-badge-g"><i class="fa fa-check-circle"></i> 100% Free</span>
+        <span class="kali-badge kali-badge-b"><i class="fa fa-android"></i> Android Ready</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="page-layout">
+    <div id="toolsContainer">
+<div class="warn-box">
+<i class="fa fa-exclamation-triangle"></i>
+<p><strong>Educational Purpose Only:</strong> The Following Tools Are Listed Strictly For <strong> Cybersecurity </strong> Education And Authorized Penetration Testing. Using These Tools Against Systems Or Individuals Without Explicit Permission Is Illegal And Unethical. SchoolOfSec Is Not Responsible For Any Misuse.</p>
+</div>
+<div class="cat-section-hd" data-section="phishing" style="background:rgba(176,96,255,.07);border:1px solid rgba(176,96,255,.2)">
+<div class="csh-icon">🎣</div>
+<div class="csh-info">
+<div class="csh-title">Phishing &amp; Social Engineering Tools</div>
+<div class="csh-desc">For educational security research and authorized penetration testing only</div>
+</div>
+<div class="csh-count" style="color:var(--p)">5 Tools</div>
+</div>
+<div class="tools-list">
+<div class="tool-card tc-phishing" data-cat="phishing" data-name="zphisher">
+<div class="tc-icon-box" style="background:linear-gradient(160deg,#0d0015,#1a0025)"><span class="tc-rank">#01</span>🐟</div>
+<div class="tc-body">
+<div class="tc-top">
+<div class="tc-name-wrap"><div class="tc-name">Zphisher</div><div class="tc-ver">v2.3.5 · 30+ Templates</div></div>
+<div class="tc-badges"><span class="tcb tcb-p">Phishing</span><span class="tcb tcb-r">Edu Only</span></div>
+</div>
+<div class="tc-desc">A beginner-friendly automated phishing tool. Supports 30+ website templates including Instagram, Facebook, Gmail, Twitter, Netflix and more. Uses Cloudflared and Ngrok for tunnel support.</div>
+<div class="tc-foot">
+<div class="tc-tags"><span class="tc-tag">#zphisher</span><span class="tc-tag">#phishing</span><span class="tc-tag">#social</span><span class="tc-tag">#tunneling</span></div>
+<div class="tc-actions">
+<span class="tc-diff"><i class="fa fa-circle dot-fill"></i><i class="fa fa-circle" style="color:var(--t3)"></i><i class="fa fa-circle" style="color:var(--t3)"></i></span>
+<a class="tc-btn tc-btn-o" href="#" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+<a class="tc-btn tc-btn-g" href="#" onclick="openTutorial('Zphisher','&lt;p&gt;&lt;strong&gt;Install:&lt;/strong&gt;&lt;/p&gt;&lt;pre&gt;pkg install git curl php openssh\ngit clone https://github.com/htr-tech/zphisher\ncd zphisher\nbash zphisher.sh&lt;/pre&gt;')"><i class="fa fa-book-open"></i> Tutorial</a>
+</div>
+</div>
+</div>
+<div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+</div>
+<div class="tool-card tc-phishing" data-cat="phishing" data-name="anonphisher">
+<div class="tc-icon-box" style="background:linear-gradient(160deg,#080010,#100020)"><span class="tc-rank">#02</span>🎭</div>
+<div class="tc-body">
+<div class="tc-top">
+<div class="tc-name-wrap"><div class="tc-name">AnonPhisher</div><div class="tc-ver">Latest · Termux</div></div>
+<div class="tc-badges"><span class="tcb tcb-p">Phishing</span><span class="tcb tcb-r">Edu Only</span></div>
+</div>
+<div class="tc-desc">Anonymous phishing tool for Termux with multiple platform templates and automatic tunnel setup. Designed to demonstrate social engineering attack vectors for security awareness training.</div>
+<div class="tc-foot">
+<div class="tc-tags"><span class="tc-tag">#anon</span><span class="tc-tag">#phishing</span><span class="tc-tag">#anonymous</span></div>
+<div class="tc-actions">
+<a class="tc-btn tc-btn-o" href="#" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+<a class="tc-btn tc-btn-g" href="#" onclick="openTutorial('AnonPhisher','&lt;p&gt;&lt;strong&gt;Install:&lt;/strong&gt;&lt;/p&gt;&lt;pre&gt;pkg install git python\ngit clone https://github.com/AnonPhisher\ncd AnonPhisher\npython anonphisher.py&lt;/pre&gt;')"><i class="fa fa-book-open"></i> Tutorial</a>
+</div>
+</div>
+</div>
+<div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+</div>
+<div class="tool-card tc-phishing" data-cat="phishing" data-name="maxphisher">
+<div class="tc-icon-box" style="background:linear-gradient(160deg,#0a000d,#150018)"><span class="tc-rank">#03</span>🎯</div>
+<div class="tc-body">
+<div class="tc-top">
+<div class="tc-name-wrap"><div class="tc-name">MaxPhisher</div><div class="tc-ver">Latest · Termux</div></div>
+<div class="tc-badges"><span class="tcb tcb-p">Phishing</span><span class="tcb tcb-r">Edu Only</span></div>
+</div>
+<div class="tc-desc">Advanced phishing toolkit with custom URL masking and location tracking features. Supports multiple templates and tunneling services for creating convincing phishing pages for awareness demos.</div>
+<div class="tc-foot">
+<div class="tc-tags"><span class="tc-tag">#maxphisher</span><span class="tc-tag">#phishing</span><span class="tc-tag">#masking</span></div>
+<div class="tc-actions">
+<a class="tc-btn tc-btn-o" href="#" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+<a class="tc-btn tc-btn-g" href="#" onclick="openTutorial('MaxPhisher','&lt;p&gt;&lt;strong&gt;Install:&lt;/strong&gt;&lt;/p&gt;&lt;pre&gt;pkg install git python3\ngit clone https://github.com/KasRoudra/MaxPhisher\ncd MaxPhisher\npython3 maxphisher.py&lt;/pre&gt;')"><i class="fa fa-book-open"></i> Tutorial</a>
+</div>
+</div>
+</div>
+<div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+</div>
+<div class="tool-card tc-phishing" data-cat="phishing" data-name="hidden eye">
+<div class="tc-icon-box" style="background:linear-gradient(160deg,#030010,#08001a)"><span class="tc-rank">#04</span>👁️</div>
+<div class="tc-body">
+<div class="tc-top">
+<div class="tc-name-wrap"><div class="tc-name">Hidden Eye</div><div class="tc-ver">Latest · Multi-Platform</div></div>
+<div class="tc-badges"><span class="tcb tcb-p">Phishing</span><span class="tcb tcb-r">Edu Only</span></div>
+</div>
+<div class="tc-desc">A modern phishing tool with real-time victim activity notifications. Grabs credentials, location, IP address and device information. Supports 20+ website templates and multiple tunneling methods.</div>
+<div class="tc-foot">
+<div class="tc-tags"><span class="tc-tag">#hiddeneye</span><span class="tc-tag">#phishing</span><span class="tc-tag">#location</span></div>
+<div class="tc-actions">
+<a class="tc-btn tc-btn-o" href="#" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+<a class="tc-btn tc-btn-g" href="#" onclick="openTutorial('Hidden Eye','&lt;p&gt;&lt;strong&gt;Install:&lt;/strong&gt;&lt;/p&gt;&lt;pre&gt;pkg install git python php\ngit clone https://github.com/DarkSecDevelopers/HiddenEye\ncd HiddenEye\npython HiddenEye.py&lt;/pre&gt;')"><i class="fa fa-book-open"></i> Tutorial</a>
+</div>
+</div>
+</div>
+<div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+</div>
+<div class="tool-card tc-phishing" data-cat="phishing" data-name="maskphisher maskphish">
+<div class="tc-icon-box" style="background:linear-gradient(160deg,#07000f,#0f0020)"><span class="tc-rank">#05</span>🎭</div>
+<div class="tc-body">
+<div class="tc-top">
+<div class="tc-name-wrap"><div class="tc-name">MaskPhish</div><div class="tc-ver">Latest · URL Masker</div></div>
+<div class="tc-badges"><span class="tcb tcb-p">URL Masking</span><span class="tcb tcb-r">Edu Only</span></div>
+</div>
+<div class="tc-desc">A simple URL masking tool that hides phishing links behind legitimate-looking URLs. Used to demonstrate how URL-based social engineering attacks deceive users during security awareness training.</div>
+<div class="tc-foot">
+<div class="tc-tags"><span class="tc-tag">#maskphish</span><span class="tc-tag">#url</span><span class="tc-tag">#masking</span></div>
+<div class="tc-actions">
+<a class="tc-btn tc-btn-o" href="#" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i> GitHub</a>
+<a class="tc-btn tc-btn-g" href="#" onclick="openTutorial('MaskPhish','&lt;p&gt;&lt;strong&gt;Install:&lt;/strong&gt;&lt;/p&gt;&lt;pre&gt;pkg install git curl\ngit clone https://github.com/jaykali/maskphish\ncd maskphish\nbash maskphish.sh&lt;/pre&gt;')"><i class="fa fa-book-open"></i> Tutorial</a>
+</div>
+</div>
+</div>
+<div class="tc-arr"><i class="fa fa-arrow-right"></i></div>
+</div>
+</div>
+<div id="noResults" style="display:none;text-align:center;padding:40px 20px;color:var(--t3)">
+<div style="font-size:36px;margin-bottom:10px">🔍</div>
+<div style="font-family:var(--head);font-size:16px;color:var(--t2);margin-bottom:6px">No Tools Found</div>
+<div style="font-size:11px">Try A Different Search Term Or Category</div>
+</div>
+    </div>
+
+    <div class="sidebar">
+<div class="widget" style="background:var(--g4);border-color:rgba(0,255,136,.2)">
+<div class="w-bd" style="padding:14px">
+<div style="font-size:9px;color:var(--g);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px">📱 Required</div>
+<div style="font-family:var(--head);font-size:17px;font-weight:800;color:var(--t1);margin-bottom:4px">Download Termux</div>
+<div style="font-size:10px;color:var(--t2);margin-bottom:10px">Free · No Root · 600+ Packages · v0.118</div>
+<a class="btn-dl" href="https://f-droid.org/packages/com.termux/" onclick="showToast('Redirecting to F-Droid...')" target="_blank"><i class="fa fa-download"></i> Download from F-Droid</a>
+<a class="btn-dl-sec" href="https://github.com/termux/termux-app/releases" onclick="showToast('Redirecting to GitHub...')" target="_blank"><i class="fab fa-github"></i> GitHub APK</a>
+<div style="font-size:9px;color:var(--r);margin-top:8px;text-align:center">⚠️ Don't use Play Store version</div>
+</div>
+</div>
+<div class="widget"><div class="w-hd"><div class="w-title"><i class="fa fa-folder"></i> Categories</div></div><div class="w-bd" style="padding:6px">
+<a href="index.html" class="cat-list-item"><div class="cli-left"><div class="cli-dot" style="background:var(--g)"></div><span class="cli-name">All Tools</span></div><span class="cli-count">30</span></a>
+<a href="exploitation.html" class="cat-list-item"><div class="cli-left"><div class="cli-dot" style="background:#ff4444"></div><span class="cli-name">Exploitation</span></div><span class="cli-count">5</span></a>
+<a href="network.html" class="cat-list-item"><div class="cli-left"><div class="cli-dot" style="background:#00aaff"></div><span class="cli-name">Network</span></div><span class="cli-count">4</span></a>
+<a href="phishing.html" class="cat-list-item" style="background:var(--bg3);box-shadow:inset 2px 0 0 #b060ff"><div class="cli-left"><div class="cli-dot" style="background:#b060ff"></div><span class="cli-name">Phishing</span></div><span class="cli-count">5</span></a>
+<a href="osint.html" class="cat-list-item"><div class="cli-left"><div class="cli-dot" style="background:#00ff88"></div><span class="cli-name">OSINT</span></div><span class="cli-count">5</span></a>
+<a href="recon.html" class="cat-list-item"><div class="cli-left"><div class="cli-dot" style="background:#f5c518"></div><span class="cli-name">Recon</span></div><span class="cli-count">3</span></a>
+<a href="password.html" class="cat-list-item"><div class="cli-left"><div class="cli-dot" style="background:#ff7f50"></div><span class="cli-name">Password</span></div><span class="cli-count">2</span></a>
+<a href="system.html" class="cat-list-item"><div class="cli-left"><div class="cli-dot" style="background:#38bdf8"></div><span class="cli-name">System</span></div><span class="cli-count">1</span></a>
+<a href="style-ui.html" class="cat-list-item"><div class="cli-left"><div class="cli-dot" style="background:#e879f9"></div><span class="cli-name">Style & UI</span></div><span class="cli-count">2</span></a>
+<a href="distros.html" class="cat-list-item"><div class="cli-left"><div class="cli-dot" style="background:#fb923c"></div><span class="cli-name">Distros</span></div><span class="cli-count">3</span></a>
+<a href="emulators.html" class="cat-list-item"><div class="cli-left"><div class="cli-dot" style="background:#34d399"></div><span class="cli-name">Emulators</span></div><span class="cli-count">1</span></a>
+</div></div>
+<div class="widget">
+<div class="w-hd"><div class="w-title"><i class="fa fa-terminal"></i> Quick Install</div></div>
+<div class="qi-code" onclick="copyToClipboard(this)"><span style="color:var(--t3)"># Essential tools in Termux</span>
+<span style="color:var(--g)">pkg install -y \</span>
+<span style="color:var(--b)">  nmap hydra git \</span>
+<span style="color:var(--b)">  python openssh \</span>
+<span style="color:var(--b)">  sqlmap metasploit</span>
+<span style="color:var(--t3)"># Install Linux distro</span>
+<span style="color:var(--g)">pkg install proot-distro</span>
+<span style="color:var(--b)">proot-distro install kali</span></div>
+</div>
+<div class="widget">
+<div class="w-hd"><div class="w-title"><i class="fa fa-chart-bar"></i> Directory Stats</div></div>
+<div class="sgrid">
+<div class="sbox"><span class="sn counter" data-target="30">0</span><span class="sl">Tools Listed</span></div>
+<div class="sbox"><span class="sn counter" data-target="10">0</span><span class="sl">Categories</span></div>
+<div class="sbox"><span class="sn">100%</span><span class="sl">Free Tools</span></div>
+<div class="sbox"><span class="sn">2026</span><span class="sl">Updated</span></div>
+</div>
+</div>
+<div class="widget">
+<div class="w-hd"><div class="w-title"><i class="fa fa-fire"></i> Most Viewed</div></div>
+<div class="w-bd" style="padding:4px">
+<div class="trow"><div class="tr-n h">01</div><div class="tr-inf"><div class="tr-t">Metasploit on Termux</div><div class="tr-m">91K views · Today</div></div></div>
+<div class="trow"><div class="tr-n h">02</div><div class="tr-inf"><div class="tr-t">Zphisher Full Guide</div><div class="tr-m">78K views · Today</div></div></div>
+<div class="trow"><div class="tr-n">03</div><div class="tr-inf"><div class="tr-t">Nmap Cheat Sheet 2026</div><div class="tr-m">88K views</div></div></div>
+<div class="trow"><div class="tr-n">04</div><div class="tr-inf"><div class="tr-t">Sherlock Username OSINT</div><div class="tr-m">62K views</div></div></div>
+<div class="trow"><div class="tr-n">05</div><div class="tr-inf"><div class="tr-t">PhoneInfoga Tutorial</div><div class="tr-m">54K views</div></div></div>
+</div>
+</div>
+<div class="widget">
+<div class="w-hd"><div class="w-title"><i class="fa fa-tags"></i> Popular Tags</div></div>
+<div class="tcloud">
+<span class="tg" onclick="liveSearch('termux')">#termux</span><span class="tg" onclick="liveSearch('nmap')">#nmap</span><span class="tg" onclick="liveSearch('metasploit')">#metasploit</span>
+<span class="tg" onclick="liveSearch('phishing')">#phishing</span><span class="tg" onclick="liveSearch('osint')">#osint</span><span class="tg" onclick="liveSearch('hydra')">#hydra</span>
+<span class="tg" onclick="liveSearch('kali')">#kali</span><span class="tg" onclick="liveSearch('python')">#python</span><span class="tg" onclick="liveSearch('android')">#android</span>
+<span class="tg" onclick="liveSearch('sherlock')">#sherlock</span><span class="tg" onclick="liveSearch('wifi')">#wifi</span><span class="tg" onclick="liveSearch('exploit')">#exploit</span>
+<span class="tg" onclick="liveSearch('zphisher')">#zphisher</span><span class="tg" onclick="liveSearch('linux')">#linux</span><span class="tg" onclick="liveSearch('recon')">#recon</span>
+</div>
+</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+<div class="footer-top">
+<div>
+<div class="logo-wrap" style="margin-bottom:8px">
+<div class="logo-box" style="width:36px;height:36px;font-size:18px"><a href="#"><img alt="SchoolOfSec logo" src="assets/profile.png"/></a></div>
+<div class="logo-text">
+<span class="logo-main" style="font-size:20px">SchoolOf<span>Sec</span></span>
+<span class="logo-sub">Est. 2026</span>
+</div>
+</div>
+<p class="fb-desc">Your ultimate source for Linux tools, Termux tutorials, pentesting guides and Android terminal hacks. Trusted by 142,000+ readers worldwide.</p>
+<div class="soc-row">
+<a class="soc-btn" href="https://t.me/termux_tools_official" onclick="showToast('Opening Telegram...')" target="_blank"><i class="fab fa-telegram"></i></a>
+<a class="soc-btn" href="#" onclick="showToast('Opening YouTube...')"><i class="fab fa-youtube"></i></a>
+<a class="soc-btn" href="#" onclick="showToast('Opening GitHub...')"><i class="fab fa-github"></i></a>
+<a class="soc-btn" href="#" onclick="showToast('Opening Twitter...')"><i class="fab fa-twitter"></i></a>
+<a class="soc-btn" href="https://whatsapp.com/channel/0029Vaia9SGHbFUxOSZvwB1y" onclick="showToast('Opening WhatsApp...')" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a class="soc-btn" href="#" onclick="showToast('Opening Discord...')"><i class="fab fa-discord"></i></a>
+</div>
+</div>
+<div>
+<div class="fc-t">Linux Tools</div>
+<ul class="f-links">
+<li><a href="network.html"><i class="fa fa-chevron-right"></i>Nmap &amp; Recon</a></li>
+<li><a href="exploitation.html"><i class="fa fa-chevron-right"></i>Metasploit</a></li>
+<li><a href="password.html"><i class="fa fa-chevron-right"></i>Hydra &amp; Password</a></li>
+<li><a href="network.html"><i class="fa fa-chevron-right"></i>Aircrack-ng WiFi</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>SQLmap</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>Wireshark</a></li>
+</ul>
+</div>
+<div>
+<div class="fc-t">Termux</div>
+<ul class="f-links">
+<li><a href="https://f-droid.org/packages/com.termux/" onclick="showToast('Redirecting to F-Droid...')" target="_blank"><i class="fa fa-download"></i>Download Termux</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>Installation Guide</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>Package List</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>Scripts &amp; Hacks</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>Beginner Guide</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>Troubleshooting</a></li>
+</ul>
+</div>
+<div>
+<div class="fc-t">Company</div>
+<ul class="f-links">
+<li><a href="#"><i class="fa fa-chevron-right"></i>About Us</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>Write For Us</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>Contact</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>Privacy Policy</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>Terms of Service</a></li>
+<li><a href="#"><i class="fa fa-chevron-right"></i>RSS Feed</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bot">
+<div class="fb-l">
+<span>© 2026 SchoolOfSec. All rights reserved.</span>
+<span>For educational purposes only.</span>
+</div>
+<div class="fb-r">
+<a href="#">Privacy</a>
+<a href="#">Terms</a>
+<a href="#">Sitemap</a>
+<a href="#">RSS</a>
+</div>
+</div>
+</footer>
+
+<div id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa fa-arrow-up"></i></div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
