@@ -17,11 +17,27 @@ window.addEventListener('scroll',function(){
 });
 
 /* ── THEME ── */
+function updateThemeIcon(){
+  var icon=document.querySelector('#themeToggle i');
+  if(!icon)return;
+  var isLight=document.documentElement.getAttribute('data-theme')==='light';
+  icon.className=isLight?'fa fa-sun':'fa fa-moon';
+}
 function toggleTheme(){
   var h=document.documentElement;
-  h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark');
-  showToast('Theme switched to '+(h.getAttribute('data-theme')==='dark'?'Dark':'Light'));
+  var next=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  h.setAttribute('data-theme',next);
+  try{localStorage.setItem('sos-theme',next)}catch(e){}
+  updateThemeIcon();
+  showToast('Theme switched to '+(next==='dark'?'Dark':'Light'));
 }
+(function(){
+  try{
+    var saved=localStorage.getItem('sos-theme');
+    if(saved)document.documentElement.setAttribute('data-theme',saved);
+  }catch(e){}
+  updateThemeIcon();
+})();
 
 /* ── TOAST ── */
 function showToast(msg){
