@@ -1,0 +1,281 @@
+/* ================================================================
+   SCHOOLOFSEC — GLASSMORPHISM UPGRADE LAYER
+   Loaded after style.css. Re-skins panels, tool cards, widgets and
+   chrome with frosted-glass surfaces, soft glow accents and a
+   floating aurora backdrop. Structure/JS are untouched.
+   ================================================================ */
+
+:root{
+  --glass:            rgba(255,255,255,.045);
+  --glass-hi:         rgba(255,255,255,.09);
+  --glass-brd:        rgba(255,255,255,.10);
+  --glass-brd-hi:     rgba(255,255,255,.22);
+  --glass-blur:       blur(22px) saturate(160%);
+  --glass-blur-sm:    blur(12px) saturate(140%);
+  --glass-shadow:     0 10px 36px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.06);
+  --glass-shadow-hov: 0 18px 48px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.10);
+  --radg:  18px;
+  --radg2: 22px;
+}
+[data-theme="light"]{
+  --glass:            rgba(255,255,255,.50);
+  --glass-hi:         rgba(255,255,255,.72);
+  --glass-brd:        rgba(255,255,255,.65);
+  --glass-brd-hi:     rgba(255,255,255,.9);
+  --glass-shadow:     0 10px 30px rgba(30,50,70,.10), inset 0 1px 0 rgba(255,255,255,.7);
+  --glass-shadow-hov: 0 18px 42px rgba(30,50,70,.16), inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+/* ── Per-category accent RGB triplets (for glow math) ── */
+:root{
+  --acc-exploit:255,68,68;   --acc-network:0,170,255;  --acc-phishing:176,96,255;
+  --acc-osint:0,255,136;     --acc-recon:245,197,24;   --acc-password:255,127,80;
+  --acc-system:56,189,248;   --acc-style:232,121,249;  --acc-distro:251,146,60;
+  --acc-emulator:52,211,153;
+}
+
+/* ================================================================
+   AURORA BACKDROP
+   ================================================================ */
+.aurora-bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora-blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.30;mix-blend-mode:screen;will-change:transform}
+.ab1{width:560px;height:560px;background:radial-gradient(circle,var(--g) 0%,transparent 70%);top:-160px;left:-100px;animation:auroraFloat 24s ease-in-out infinite}
+.ab2{width:520px;height:520px;background:radial-gradient(circle,var(--b) 0%,transparent 70%);top:20%;right:-160px;animation:auroraFloat 28s ease-in-out infinite -8s}
+.ab3{width:480px;height:480px;background:radial-gradient(circle,var(--p) 0%,transparent 70%);bottom:-180px;left:28%;animation:auroraFloat 32s ease-in-out infinite -16s}
+@keyframes auroraFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(50px,-40px) scale(1.1)}
+  66%{transform:translate(-40px,30px) scale(.92)}
+}
+[data-theme="light"] .aurora-blob{opacity:.22}
+@media(prefers-reduced-motion:reduce){.aurora-blob{animation:none!important}}
+
+/* Everything else needs to sit above the aurora layer */
+.topbar,.masthead,.cat-strip,.kali-hero,.cat-grid-section,.wrap,footer,#toastContainer,.modal-overlay,#backToTop{position:relative;z-index:1}
+
+/* ================================================================
+   CHROME BARS → GLASS
+   ================================================================ */
+.topbar{background:var(--glass);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-bottom:1px solid var(--glass-brd)}
+.masthead{background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid rgba(0,255,136,.25)}
+.cat-strip{background:var(--glass);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-bottom:1px solid var(--glass-brd)}
+.cs-btn.act{background:var(--glass-hi);box-shadow:inset 0 0 0 1px rgba(0,255,136,.25)}
+.cat-grid-section{background:transparent;border-bottom:1px solid var(--glass-brd)}
+
+.logo-box{background:linear-gradient(135deg,var(--g),#00d8ff);box-shadow:0 4px 18px rgba(0,255,136,.25)}
+
+.icon-btn,.nsearch{background:var(--glass);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-color:var(--glass-brd)}
+
+/* ================================================================
+   KALI HERO — glass panels for search / terminal / badges / stats
+   ================================================================ */
+.kali-hero{background:linear-gradient(180deg,#04060a,#070a10)}
+.kali-terminal-line{background:var(--glass);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-color:var(--glass-brd);border-radius:var(--radg)}
+.kali-search-wrap{background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-color:var(--glass-brd);border-radius:var(--radg);box-shadow:var(--glass-shadow)}
+.kali-search-wrap:focus-within{box-shadow:var(--glass-shadow-hov),0 0 0 3px var(--g4)}
+.kali-cta{background:linear-gradient(135deg,var(--g),#00d8ff);border-radius:var(--radg);box-shadow:0 10px 30px rgba(0,255,136,.28)}
+.kali-cta:hover{background:linear-gradient(135deg,var(--g2),#00b8e0)}
+.kali-badge{backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-radius:var(--radg)}
+.kali-badge-r{background:rgba(255,68,68,.10)}
+.kali-badge-g{background:rgba(0,255,136,.10)}
+.kali-badge-b{background:rgba(0,170,255,.10)}
+.kali-dragon-inner{background:radial-gradient(circle at 40% 35%,rgba(0,255,136,.10),rgba(5,7,9,.55));backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--glass-brd-hi);box-shadow:0 0 50px rgba(0,255,136,.15),inset 0 1px 0 rgba(255,255,255,.08)}
+.kali-stat{background:var(--glass);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-color:var(--glass-brd);border-radius:var(--radg)}
+.kali-stat:hover{background:var(--glass-hi);border-color:rgba(0,255,136,.35);box-shadow:var(--glass-shadow-hov)}
+
+/* ================================================================
+   CATEGORY GRID CARDS → glass tiles
+   ================================================================ */
+.cat-grid-card{
+  background:var(--glass);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-brd);
+  border-radius:var(--radg);
+  box-shadow:var(--glass-shadow);
+}
+.cat-grid-card:hover{
+  background:var(--glass-hi);
+  box-shadow:var(--glass-shadow-hov),0 0 24px var(--cgc,rgba(0,255,136,.2));
+  border-color:var(--glass-brd-hi);
+}
+.cgc-icon{backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-radius:14px}
+
+/* section header strip */
+.cat-section-hd{background:var(--glass)!important;backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border:1px solid var(--glass-brd)!important;border-radius:var(--radg)}
+
+/* info / warning */
+.info-box,.warn-box{backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-radius:var(--radg)}
+
+/* ================================================================
+   TOOL CARDS — full glass redesign
+   ================================================================ */
+.tool-card{
+  background:var(--glass);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-brd);
+  border-left:1px solid var(--glass-brd);
+  border-radius:var(--radg2);
+  box-shadow:var(--glass-shadow);
+  align-items:center;
+  padding:8px;
+  gap:4px;
+}
+.tool-card:hover{
+  transform:translateY(-3px) translateX(0);
+  box-shadow:var(--glass-shadow-hov);
+  border-color:var(--glass-brd-hi);
+}
+/* neutralise the old flat category hover backgrounds — glow does the talking now */
+.tool-card:hover.tc-exploit,.tool-card:hover.tc-network,.tool-card:hover.tc-phishing,
+.tool-card:hover.tc-osint,.tool-card:hover.tc-recon,.tool-card:hover.tc-password,
+.tool-card:hover.tc-system,.tool-card:hover.tc-style,.tool-card:hover.tc-distro,
+.tool-card:hover.tc-emulator{background:var(--glass-hi)}
+
+.tool-card.tc-exploit{box-shadow:var(--glass-shadow),inset 3px 0 0 0 rgba(var(--acc-exploit),.55)}
+.tool-card.tc-network{box-shadow:var(--glass-shadow),inset 3px 0 0 0 rgba(var(--acc-network),.55)}
+.tool-card.tc-phishing{box-shadow:var(--glass-shadow),inset 3px 0 0 0 rgba(var(--acc-phishing),.55)}
+.tool-card.tc-osint{box-shadow:var(--glass-shadow),inset 3px 0 0 0 rgba(var(--acc-osint),.55)}
+.tool-card.tc-recon{box-shadow:var(--glass-shadow),inset 3px 0 0 0 rgba(var(--acc-recon),.55)}
+.tool-card.tc-password{box-shadow:var(--glass-shadow),inset 3px 0 0 0 rgba(var(--acc-password),.55)}
+.tool-card.tc-system{box-shadow:var(--glass-shadow),inset 3px 0 0 0 rgba(var(--acc-system),.55)}
+.tool-card.tc-style{box-shadow:var(--glass-shadow),inset 3px 0 0 0 rgba(var(--acc-style),.55)}
+.tool-card.tc-distro{box-shadow:var(--glass-shadow),inset 3px 0 0 0 rgba(var(--acc-distro),.55)}
+.tool-card.tc-emulator{box-shadow:var(--glass-shadow),inset 3px 0 0 0 rgba(var(--acc-emulator),.55)}
+
+.tool-card:hover.tc-exploit{box-shadow:var(--glass-shadow-hov),inset 3px 0 0 0 rgba(var(--acc-exploit),.9),0 0 30px rgba(var(--acc-exploit),.18)}
+.tool-card:hover.tc-network{box-shadow:var(--glass-shadow-hov),inset 3px 0 0 0 rgba(var(--acc-network),.9),0 0 30px rgba(var(--acc-network),.18)}
+.tool-card:hover.tc-phishing{box-shadow:var(--glass-shadow-hov),inset 3px 0 0 0 rgba(var(--acc-phishing),.9),0 0 30px rgba(var(--acc-phishing),.18)}
+.tool-card:hover.tc-osint{box-shadow:var(--glass-shadow-hov),inset 3px 0 0 0 rgba(var(--acc-osint),.9),0 0 30px rgba(var(--acc-osint),.18)}
+.tool-card:hover.tc-recon{box-shadow:var(--glass-shadow-hov),inset 3px 0 0 0 rgba(var(--acc-recon),.9),0 0 30px rgba(var(--acc-recon),.18)}
+.tool-card:hover.tc-password{box-shadow:var(--glass-shadow-hov),inset 3px 0 0 0 rgba(var(--acc-password),.9),0 0 30px rgba(var(--acc-password),.18)}
+.tool-card:hover.tc-system{box-shadow:var(--glass-shadow-hov),inset 3px 0 0 0 rgba(var(--acc-system),.9),0 0 30px rgba(var(--acc-system),.18)}
+.tool-card:hover.tc-style{box-shadow:var(--glass-shadow-hov),inset 3px 0 0 0 rgba(var(--acc-style),.9),0 0 30px rgba(var(--acc-style),.18)}
+.tool-card:hover.tc-distro{box-shadow:var(--glass-shadow-hov),inset 3px 0 0 0 rgba(var(--acc-distro),.9),0 0 30px rgba(var(--acc-distro),.18)}
+.tool-card:hover.tc-emulator{box-shadow:var(--glass-shadow-hov),inset 3px 0 0 0 rgba(var(--acc-emulator),.9),0 0 30px rgba(var(--acc-emulator),.18)}
+
+/* icon badge → floating glass squircle, glowing per category */
+.tc-icon-box{
+  width:54px;height:54px;flex-shrink:0;
+  border-radius:16px;border:1px solid var(--glass-brd);
+  background:var(--glass-hi);
+  backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);
+  margin:0 4px 0 2px;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.tool-card:hover .tc-icon-box{background:var(--glass-hi);transform:scale(1.08) rotate(-4deg)}
+.tc-icon-box .tc-rank{top:3px;left:3px;background:rgba(0,0,0,.35);padding:1px 4px;border-radius:5px;backdrop-filter:blur(4px)}
+
+.tool-card.tc-exploit .tc-icon-box{box-shadow:0 0 22px rgba(var(--acc-exploit),.20),inset 0 1px 0 rgba(255,255,255,.08)}
+.tool-card.tc-network .tc-icon-box{box-shadow:0 0 22px rgba(var(--acc-network),.20),inset 0 1px 0 rgba(255,255,255,.08)}
+.tool-card.tc-phishing .tc-icon-box{box-shadow:0 0 22px rgba(var(--acc-phishing),.20),inset 0 1px 0 rgba(255,255,255,.08)}
+.tool-card.tc-osint .tc-icon-box{box-shadow:0 0 22px rgba(var(--acc-osint),.20),inset 0 1px 0 rgba(255,255,255,.08)}
+.tool-card.tc-recon .tc-icon-box{box-shadow:0 0 22px rgba(var(--acc-recon),.20),inset 0 1px 0 rgba(255,255,255,.08)}
+.tool-card.tc-password .tc-icon-box{box-shadow:0 0 22px rgba(var(--acc-password),.20),inset 0 1px 0 rgba(255,255,255,.08)}
+.tool-card.tc-system .tc-icon-box{box-shadow:0 0 22px rgba(var(--acc-system),.20),inset 0 1px 0 rgba(255,255,255,.08)}
+.tool-card.tc-style .tc-icon-box{box-shadow:0 0 22px rgba(var(--acc-style),.20),inset 0 1px 0 rgba(255,255,255,.08)}
+.tool-card.tc-distro .tc-icon-box{box-shadow:0 0 22px rgba(var(--acc-distro),.20),inset 0 1px 0 rgba(255,255,255,.08)}
+.tool-card.tc-emulator .tc-icon-box{box-shadow:0 0 22px rgba(var(--acc-emulator),.20),inset 0 1px 0 rgba(255,255,255,.08)}
+
+.tool-card:hover.tc-exploit .tc-icon-box{box-shadow:0 0 30px rgba(var(--acc-exploit),.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.tool-card:hover.tc-network .tc-icon-box{box-shadow:0 0 30px rgba(var(--acc-network),.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.tool-card:hover.tc-phishing .tc-icon-box{box-shadow:0 0 30px rgba(var(--acc-phishing),.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.tool-card:hover.tc-osint .tc-icon-box{box-shadow:0 0 30px rgba(var(--acc-osint),.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.tool-card:hover.tc-recon .tc-icon-box{box-shadow:0 0 30px rgba(var(--acc-recon),.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.tool-card:hover.tc-password .tc-icon-box{box-shadow:0 0 30px rgba(var(--acc-password),.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.tool-card:hover.tc-system .tc-icon-box{box-shadow:0 0 30px rgba(var(--acc-system),.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.tool-card:hover.tc-style .tc-icon-box{box-shadow:0 0 30px rgba(var(--acc-style),.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.tool-card:hover.tc-distro .tc-icon-box{box-shadow:0 0 30px rgba(var(--acc-distro),.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.tool-card:hover.tc-emulator .tc-icon-box{box-shadow:0 0 30px rgba(var(--acc-emulator),.4),inset 0 1px 0 rgba(255,255,255,.1)}
+
+.tc-body{padding:6px 10px}
+
+/* badges & tags → glass pills */
+.tcb{backdrop-filter:blur(6px);border-radius:20px}
+.tc-tag{background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(6px);border-radius:20px}
+.tc-tag:hover{background:var(--g);border-color:var(--g)}
+
+/* buttons */
+.tc-btn{border-radius:12px}
+.tc-btn-g{background:linear-gradient(135deg,var(--g),#00d8ff);box-shadow:0 4px 16px rgba(0,255,136,.22)}
+.tc-btn-g:hover{background:linear-gradient(135deg,var(--g2),#00b8e0);box-shadow:0 6px 20px rgba(0,255,136,.35)}
+.tc-btn-o{background:var(--glass);backdrop-filter:blur(6px);border-color:var(--glass-brd)}
+.tc-btn-o:hover{background:var(--glass-hi)}
+
+.tc-arr{border-left:1px solid var(--glass-brd);border-radius:0 var(--radg2) var(--radg2) 0}
+
+/* ================================================================
+   FEATURED TOOL CARDS → glass
+   ================================================================ */
+.tool-card-feat{
+  background:var(--glass);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-brd);
+  border-radius:var(--radg2);
+  box-shadow:var(--glass-shadow);
+}
+.tool-card-feat:hover{
+  box-shadow:var(--glass-shadow-hov),0 0 30px rgba(0,255,136,.15);
+  border-color:rgba(0,255,136,.4);
+}
+.tcf-banner{position:relative}
+.tcf-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.35) 100%)}
+.tcf-foot{border-top-color:var(--glass-brd)}
+
+/* ================================================================
+   SIDEBAR WIDGETS → glass
+   ================================================================ */
+.widget{
+  background:var(--glass);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-brd);
+  border-radius:var(--radg2);
+  box-shadow:var(--glass-shadow);
+}
+.widget:hover{box-shadow:var(--glass-shadow-hov)}
+.w-hd{border-bottom-color:var(--glass-brd)}
+.sbox,.qi-code,.trow:hover,.cat-list-item:hover{background:var(--glass-hi);backdrop-filter:blur(6px)}
+.tg{background:var(--glass);border-color:var(--glass-brd);backdrop-filter:blur(6px)}
+.btn-dl{background:linear-gradient(135deg,var(--g),#00d8ff);border-radius:var(--radg)}
+.btn-dl:hover{background:linear-gradient(135deg,var(--g2),#00b8e0)}
+.btn-dl-sec{background:var(--glass);backdrop-filter:blur(6px);border-radius:var(--radg)}
+.cli-count{background:var(--glass);border-color:var(--glass-brd)}
+
+/* ================================================================
+   FOOTER → glass
+   ================================================================ */
+footer{background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-top:1px solid var(--glass-brd)}
+.soc-btn{background:var(--glass);backdrop-filter:blur(6px);border-color:var(--glass-brd);border-radius:12px}
+.footer-bot{border-top-color:var(--glass-brd)}
+
+/* ================================================================
+   MODAL / TOAST / MISC → glass
+   ================================================================ */
+.modal-box{background:var(--glass-hi);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--glass-brd-hi);border-radius:var(--radg2);box-shadow:0 30px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08)}
+.modal-hd{border-bottom-color:var(--glass-brd)}
+.modal-close{background:var(--glass);border-color:var(--glass-brd)}
+.toast{background:var(--glass-hi);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-radius:var(--radg);box-shadow:0 12px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+#backToTop{background:var(--glass-hi);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-color:var(--glass-brd)}
+
+/* ================================================================
+   RESPONSIVE TWEAKS
+   ================================================================ */
+@media(max-width:768px){
+  .tool-card{border-radius:16px;padding:6px}
+  .tc-icon-box{width:48px;height:48px;border-radius:14px}
+}
+@media(max-width:480px){
+  .tool-card{border-radius:14px}
+  .tc-icon-box{width:44px;height:44px;border-radius:12px}
+  .cat-grid-card{border-radius:14px}
+}
+
+/* Safari/older engines without backdrop-filter support: fall back to solid-ish panels */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .topbar,.masthead,.cat-strip,.cat-grid-card,.tool-card,.tool-card-feat,.widget,
+  .kali-terminal-line,.kali-search-wrap,.kali-stat,.kali-dragon-inner,footer,
+  .modal-box,.toast,#backToTop,.cat-section-hd{background:var(--bg2)}
+}
