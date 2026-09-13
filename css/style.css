@@ -171,9 +171,15 @@ input,button{max-width:100%}
   margin-bottom:4px;
 }
 .kali-title-main{
-  font-size:clamp(48px,7vw,82px);font-weight:900;
+  font-family:var(--mono);
+  font-size:clamp(44px,7vw,78px);font-weight:700;
   color:#e8edf5;letter-spacing:-1px;
-  text-shadow:0 0 60px rgba(0,255,136,.15);
+  background:linear-gradient(135deg,#f2fff8 0%,var(--g) 50%,#00d8ff 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  text-shadow:0 0 60px rgba(0,255,136,.18);
+  transform:skewX(-4deg);
+  display:inline-block;
   position:relative;
 }
 /* Glitch effect on hover */
@@ -183,9 +189,9 @@ input,button{max-width:100%}
   25%{text-shadow:-2px 0 var(--r),2px 0 var(--b)}
   50%{text-shadow:2px 0 var(--b),-2px 0 var(--r)}
   75%{text-shadow:-2px 0 var(--b),2px 0 var(--r)}
-  100%{text-shadow:0 0 60px rgba(0,255,136,.15)}
+  100%{text-shadow:0 0 60px rgba(0,255,136,.18)}
 }
-.kali-title-accent{color:var(--g);font-style:italic}
+.kali-title-accent{color:var(--g);-webkit-text-fill-color:var(--g);font-style:italic}
 .kali-title-sub{
   font-size:clamp(12px,2vw,16px);letter-spacing:8px;font-weight:600;
   color:var(--t2);text-transform:uppercase;margin-top:4px;
@@ -265,6 +271,7 @@ input,button{max-width:100%}
 }
 .kali-dragon-badge:hover .kali-dragon-inner{transform:scale(1.05);box-shadow:0 0 60px rgba(0,255,136,.2),inset 0 0 30px rgba(0,255,136,.1)}
 .kali-dragon-icon{font-size:36px;margin-bottom:2px;filter:drop-shadow(0 0 8px rgba(0,255,136,.3));transition:transform .3s}
+.kali-dragon-logo{width:44px;height:44px;border-radius:50%;object-fit:cover;display:block;border:1px solid rgba(0,255,136,.4);box-shadow:0 0 14px rgba(0,255,136,.35)}
 .kali-dragon-badge:hover .kali-dragon-icon{transform:scale(1.1) rotate(5deg)}
 .kali-dragon-label{font-family:var(--head);font-size:11px;font-weight:900;letter-spacing:4px;color:var(--g)}
 .kali-dragon-sub{font-size:7px;letter-spacing:3px;color:var(--t3);text-transform:uppercase}
@@ -292,17 +299,6 @@ input,button{max-width:100%}
   animation-duration:20s;
 }
 @keyframes rotatering{to{transform:rotate(360deg)}}
-
-.kali-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.kali-stat{
-  background:rgba(255,255,255,.03);border:1px solid rgba(0,255,136,.1);
-  border-radius:8px;padding:12px 14px;text-align:center;min-width:72px;
-  transition:all .2s;cursor:default;
-}
-.kali-stat:hover{background:rgba(0,255,136,.05);border-color:rgba(0,255,136,.25);transform:translateY(-2px)}
-.kali-stat-n{font-family:var(--head);font-size:20px;font-weight:900;color:var(--g);display:block;line-height:1;transition:transform .2s}
-.kali-stat:hover .kali-stat-n{transform:scale(1.1)}
-.kali-stat-l{font-size:8px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-top:4px;display:block}
 
 /* ============================================================
    CATEGORIES GRID SECTION
@@ -711,7 +707,10 @@ footer::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;b
   .sidebar{position:static}
   .footer-top{grid-template-columns:1fr 1fr}
   .tools-grid-2{grid-template-columns:1fr}
-  .kali-right{display:none}
+  .kali-inner{align-items:center;gap:16px}
+  .kali-right{flex-shrink:0;gap:14px}
+  .kali-dragon-badge{width:150px;height:150px}
+  .kali-dragon-inner{width:96px;height:96px}
 }
 @media(max-width:900px){
   .cat-grid{grid-template-columns:repeat(3,1fr)}
@@ -732,6 +731,15 @@ footer::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;b
   .footer-bot{flex-direction:column;align-items:flex-start}
   .filter-tabs .ftab{padding:6px 10px;font-size:9px}
   .cat-grid{grid-template-columns:repeat(2,1fr)}
+  .kali-dragon-badge{width:130px;height:130px}
+  .kali-dragon-inner{width:86px;height:86px}
+  .kali-dragon-icon{font-size:26px}
+  .kali-dragon-logo{width:34px;height:34px}
+  .kali-dragon-label{font-size:9px}
+  .kali-dragon-sub{font-size:6px}
+  .kali-ring1{width:100px;height:100px}
+  .kali-ring2{width:116px;height:116px}
+  .kali-ring3{width:130px;height:130px}
 }
 
 /* ── iPhone / small-phone tier (Pro Max ~430px down to SE ~375px) ── */
@@ -786,6 +794,16 @@ footer::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;b
   .kali-badge{font-size:8px;padding:3px 7px}
   .kali-actions{gap:7px}
   .kali-badges{gap:4px}
+  .kali-right{gap:14px}
+  .kali-dragon-badge{width:100px;height:100px}
+  .kali-dragon-inner{width:68px;height:68px}
+  .kali-dragon-icon{font-size:20px;margin-bottom:0}
+  .kali-dragon-logo{width:26px;height:26px}
+  .kali-dragon-label{font-size:8px;letter-spacing:2px}
+  .kali-dragon-sub{font-size:6px;letter-spacing:2px}
+  .kali-ring1{width:80px;height:80px}
+  .kali-ring2{width:92px;height:92px}
+  .kali-ring3{width:100px;height:100px}
 
   /* category grid section */
   .cat-grid-section{padding:18px 0 16px}
@@ -871,6 +889,13 @@ footer::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;b
   .kali-title-sub{letter-spacing:3px}
   .kali-badges .kali-badge:nth-child(3){display:none}
   .kali-search-wrap{max-width:none}
+  .kali-dragon-badge{width:86px;height:86px}
+  .kali-dragon-inner{width:58px;height:58px}
+  .kali-dragon-icon{font-size:17px}
+  .kali-dragon-logo{width:20px;height:20px}
+  .kali-ring1{width:68px;height:68px}
+  .kali-ring2{width:78px;height:78px}
+  .kali-ring3{width:86px;height:86px}
   .cat-grid{grid-template-columns:1fr 1fr;gap:5px}
   .cgc-name{font-size:9px}
   .cgc-desc{display:none}
