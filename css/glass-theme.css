@@ -33,6 +33,7 @@
    to their dark-mode values so it always renders legibly. */
 [data-theme="light"] .kali-hero{
   --t1:#e8edf5; --t2:#7a8899; --t3:#babec3;
+  --g:#00ff88; --g2:#00cc6a; --b:#00aaff;
   --glass:            rgba(255,255,255,.045);
   --glass-hi:         rgba(255,255,255,.09);
   --glass-brd:        rgba(255,255,255,.10);
@@ -86,21 +87,71 @@
 .icon-btn,.nsearch{background:var(--glass);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-color:var(--glass-brd)}
 
 /* ================================================================
-   KALI HERO — glass panels for search / terminal / badges / stats
+   KALI HERO — floating glass panel (professional glassmorphism)
    ================================================================ */
-.kali-hero{background:linear-gradient(180deg,#04060a,#070a10)}
-.kali-terminal-line{background:var(--glass);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-color:var(--glass-brd);border-radius:var(--radg)}
+.kali-hero{
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(0,255,136,.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(0,170,255,.08) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(10,14,18,.62), rgba(5,7,10,.72));
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-brd-hi);
+  border-radius:var(--radg2);
+  margin:18px 14px 0;
+  box-shadow:var(--glass-shadow-hov), 0 0 90px rgba(0,255,136,.05);
+}
+/* top glass "catch-light" edge */
+.kali-hero::before{
+  content:'';position:absolute;top:0;left:5%;right:5%;height:1px;z-index:3;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
+}
+/* slow diagonal sheen sweep for a premium "cool" glass effect */
+.kali-hero::after{
+  content:'';position:absolute;inset:-50% -20%;z-index:2;pointer-events:none;
+  background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.05) 48%,rgba(255,255,255,.09) 50%,rgba(255,255,255,.05) 52%,transparent 58%);
+  transform:translateX(-130%);
+  animation:heroSheen 10s ease-in-out infinite;
+}
+@keyframes heroSheen{
+  0%,55%{transform:translateX(-130%)}
+  85%,100%{transform:translateX(130%)}
+}
+.kali-inner{z-index:4}
+.kali-overlay{
+  border-radius:var(--radg2);
+  background:
+    radial-gradient(ellipse at 70% 50%, rgba(0,255,136,.08) 0%,transparent 60%),
+    radial-gradient(ellipse at 10% 80%, rgba(0,170,255,.06) 0%,transparent 50%),
+    linear-gradient(180deg,rgba(5,7,9,0) 0%,rgba(5,7,9,.55) 100%);
+}
+.kali-eyebrow-tag{background:var(--glass);border:1px solid var(--glass-brd);padding:4px 10px;border-radius:20px;backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm)}
+.kali-terminal-line{background:var(--glass);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-color:var(--glass-brd);border-radius:var(--radg);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
 .kali-search-wrap{background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-color:var(--glass-brd);border-radius:var(--radg);box-shadow:var(--glass-shadow)}
 .kali-search-wrap:focus-within{box-shadow:var(--glass-shadow-hov),0 0 0 3px var(--g4)}
 .kali-cta{background:linear-gradient(135deg,var(--g),#00d8ff);border-radius:var(--radg);box-shadow:0 10px 30px rgba(0,255,136,.28)}
 .kali-cta:hover{background:linear-gradient(135deg,var(--g2),#00b8e0)}
-.kali-badge{backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-radius:var(--radg)}
+.kali-badge{backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-radius:var(--radg);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
 .kali-badge-r{background:rgba(255,68,68,.10)}
 .kali-badge-g{background:rgba(0,255,136,.10)}
 .kali-badge-b{background:rgba(0,170,255,.10)}
-.kali-dragon-inner{background:radial-gradient(circle at 40% 35%,rgba(0,255,136,.10),rgba(5,7,9,.55));backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--glass-brd-hi);box-shadow:0 0 50px rgba(0,255,136,.15),inset 0 1px 0 rgba(255,255,255,.08)}
-.kali-stat{background:var(--glass);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);border-color:var(--glass-brd);border-radius:var(--radg)}
-.kali-stat:hover{background:var(--glass-hi);border-color:rgba(0,255,136,.35);box-shadow:var(--glass-shadow-hov)}
+.kali-badge-y{background:rgba(245,197,24,.10)}
+/* right-side verified badge — glass orb */
+.kali-dragon-inner{
+  background:radial-gradient(circle at 40% 35%,rgba(0,255,136,.12),rgba(5,7,9,.5));
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-brd-hi);
+  box-shadow:0 0 50px rgba(0,255,136,.15),inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+/* hero sits as a floating card — tighten margins / lose radius on small screens */
+@media(max-width:768px){
+  .kali-hero{margin:10px 8px 0;border-radius:var(--radg)}
+  .kali-overlay{border-radius:var(--radg)}
+}
+@media(prefers-reduced-motion:reduce){
+  .kali-hero::after{animation:none;display:none}
+}
 
 /* ================================================================
    CATEGORY GRID CARDS → glass tiles
@@ -295,6 +346,6 @@ footer{background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdro
 /* Safari/older engines without backdrop-filter support: fall back to solid-ish panels */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .topbar,.masthead,.cat-strip,.cat-grid-card,.tool-card,.tool-card-feat,.widget,
-  .kali-terminal-line,.kali-search-wrap,.kali-stat,.kali-dragon-inner,footer,
+  .kali-terminal-line,.kali-search-wrap,.kali-dragon-inner,footer,
   .modal-box,.toast,#backToTop,.cat-section-hd{background:var(--bg2)}
 }
